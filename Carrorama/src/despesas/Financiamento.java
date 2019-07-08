@@ -3,32 +3,22 @@ package despesas;
 public class Financiamento extends Despesas{
 
 	private int qtdParcelas;
-	private int parcelasPagas;
-	private double jurosMensal;
-	private double totalSemJuros;
+	private double valorParcela;
 	
-	public Financiamento(String nome, String data, double valor, int qtdParcelas, int parcelasPagas, double jurosMensal, double totalSemJuros) {
-		
-		super(nome, data, valor);
+	public Financiamento(String nome, String data, double valorParcela, int qtdParcelas) {
+		super(nome, data, 0, 3);
+		this.valorParcela = valorParcela;
 		this.qtdParcelas = qtdParcelas;
-		this.parcelasPagas = parcelasPagas;
-		this.jurosMensal = jurosMensal;
-		this.totalSemJuros = totalSemJuros;
+		double valor = qtdParcelas * valorParcela;
+		this.setValor(valor); // valor total do financiamento
 	}
 
 	public int getQtdParcelas() {
 		return qtdParcelas;
 	}
-
-	public int getParcelasPagas() {
-		return parcelasPagas;
+	
+	public double valorParcela() {
+		return valorParcela;
 	}
-
-	public double getJurosMensal() {
-		return jurosMensal;
-	}
-
-	public double getTotalSemJuros() {
-		return totalSemJuros;
-	}
+	
 }
