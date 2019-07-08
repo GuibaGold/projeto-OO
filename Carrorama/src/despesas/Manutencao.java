@@ -6,7 +6,7 @@ public class Manutencao extends Despesas {
 	private double validade;
 
 	public Manutencao(String nome, String data, double valor, double quilometragem, double validade) {
-		super(nome, data, valor);
+		super(nome, data, valor, 2);
 		this.quilometragem = quilometragem;
 		this.validade = validade;
 	}
