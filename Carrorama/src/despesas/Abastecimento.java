@@ -4,6 +4,7 @@ public class Abastecimento extends Despesas {
 	
 	private int tpDeCombustivel;
 	private int hodometro;
+	private int litrosAbastecidos;
 	private double valorDoLitro;
 	private boolean tanqueCheio;
 
@@ -14,6 +15,7 @@ public class Abastecimento extends Despesas {
 		this.hodometro = hodometro;
 		this.valorDoLitro = valorDoLitro;
 		this.tanqueCheio = tanqueCheio;
+		this.litrosAbastecidos = (int) (this.getValor() / valorDoLitro);
 	}
 	
 	public int getTpDeCombustivel() {

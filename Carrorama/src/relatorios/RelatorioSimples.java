@@ -3,12 +3,11 @@ import despesas.*;
 
 public class RelatorioSimples {
 	
-	private consumo.;
-	private custo;
-	private servicos;
+	private double consumo;
+	private double custo;
+	private double gastos;
 	
-	public RelatorioSimples() {
-		// TODO Auto-generated constructor stub
+	public RelatorioSimples(double consumo, double custo, double gastos) {
+		
 	}
-
 }
