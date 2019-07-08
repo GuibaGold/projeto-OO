@@ -2,13 +2,13 @@ package manutencao;
 
 public abstract class Manutencao {
 	private String nome;
-	private int quilomentra;
+	private int quilometragem;
 	private double valor;
 
-	public Manutencao(String nome, int quilomentra, double valor) {
+	public Manutencao(String nome, int quilometragem, double valor) {
 		super();
 		this.nome = nome;
-		this.quilomentra = quilomentra;
+		this.quilometragem = quilometragem;
 		this.valor = valor;
 	}
 
@@ -21,11 +21,11 @@ public abstract class Manutencao {
 	}
 
 	public int getQuilomentra() {
-		return quilomentra;
+		return quilometragem;
 	}
 
-	public void setQuilomentra(int quilomentra) {
-		this.quilomentra = quilomentra;
+	public void setQuilomentra(int quilometragem) {
+		this.quilometragem = quilometragem;
 	}
 
 	public double getValor() {

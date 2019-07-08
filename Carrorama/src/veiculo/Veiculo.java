@@ -2,13 +2,13 @@ package veiculo;
 
 public class Veiculo {
 
-	private String nome;
-	private String marca;
+	public String nome;
+	public String marca;
 	private String motorizacao;
 	private String cor;
 	private int placa;
 	private int renavam;
-	// quantidade atual de combustível
+	// quantidade atual de combustï¿½vel
 	private double tanque;
 	// constante
 	private final double capacidade;
