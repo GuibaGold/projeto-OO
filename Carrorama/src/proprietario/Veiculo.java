@@ -1,5 +1,8 @@
 package proprietario;
 
+import despesas.*;
+import java.util.ArrayList;
+
 public class Veiculo {
 
 	private String marca;
@@ -13,6 +16,7 @@ public class Veiculo {
 	private int tipoDeCombustivel;
 	private int combustivelAtual;
 	private double motorizacao;
+	private ArrayList <Despesas> veiculo = new ArrayList();
 
 	public Veiculo(String marca, String cor, String modelo, int anoDeFabricacao, int anoDoModelo, int placa, int capacidade, int renavam, int tipoDeCombustivel, int combustivelAtual, double motorizacao) {
 		
