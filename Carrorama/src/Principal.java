@@ -1,4 +1,4 @@
-import veiculo.Veiculo;
+import proprietario.Veiculo;
 
 public class Principal {
 

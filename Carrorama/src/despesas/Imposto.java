@@ -1,10 +1,9 @@
 package despesas;
 
-public class Imposto extends Despesa {
+public class Imposto extends Despesas {
 
-	public Imposto(String nome, int ano, double valor) {
-		super(nome, ano, valor);
-		
+	public Imposto(String nome, String data, double valor) {
+		super(nome, data, valor);
 	}
 
 }

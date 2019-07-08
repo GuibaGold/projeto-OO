@@ -1,39 +1,27 @@
 package manutencao;
 
 public abstract class Manutencao {
-	private String nome;
-	private int quilomentra;
-	private double valor;
+	
+	private String nomeDespesa;
+	private double quilometragem;
+	private double valorDespesa;
 
-	public Manutencao(String nome, int quilomentra, double valor) {
+	public Manutencao(String nomeDespesa, double quilometragem, double valorDespesa) {
 		super();
-		this.nome = nome;
-		this.quilomentra = quilomentra;
-		this.valor = valor;
+		this.nomeDespesa = nomeDespesa;
+		this.quilometragem = quilometragem;
+		this.valorDespesa = valorDespesa;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNomeDespesa() {
+		return nomeDespesa;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public int getQuilometragem() {
+		return quilometragem;
 	}
 
-	public int getQuilomentra() {
-		return quilomentra;
+	public double getValorDespesa() {
+		return valorDespesa;
 	}
-
-	public void setQuilomentra(int quilomentra) {
-		this.quilomentra = quilomentra;
-	}
-
-	public double getValor() {
-		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-
 }
