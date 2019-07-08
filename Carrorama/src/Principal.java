@@ -23,7 +23,7 @@ public class Principal {
 		System.out.println("Bem vindo!!");
 		System.out.println("Escolha uma opção para acessar o menu: ");
 		System.out.println("	- 1 'Cadastrar Veículo'");
-		System.out.println("	- 0 'Sair'");
+		System.out.println("	- 2 'Sair'");
 		
 	}
 	

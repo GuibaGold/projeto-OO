@@ -8,8 +8,8 @@ public class Abastecimento extends Despesas {
 	private boolean tanqueCheio;
 
 	public Abastecimento(String data, String nome, int tpDeCombustivel, int hodometro, double valorDoLitro, double valor,boolean tanqueCheio) {
-		// TODO Auto-generated constructor stub
-		super(nome,data,valor);
+
+		super(nome, data, valor, 1);
 		this.tpDeCombustivel = tpDeCombustivel;
 		this.hodometro = hodometro;
 		this.valorDoLitro = valorDoLitro;
