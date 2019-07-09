@@ -1,4 +1,4 @@
-package despesas;
+package interfaceusuário;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import proprietario.FrmCadastroVeiculo;
+import despesas.Abastecimento;
 import proprietario.Veiculo;
 import util.util;
 
@@ -136,11 +136,13 @@ public class FrmCadastroAbastecimento extends JFrame {
 								veiculos.add(novoVeiculo);
 								JOptionPane.showConfirmDialog(contentPane, "Abastecimento Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
 							}else {
-								throw new excecoes.CombustivelIncompativelException();
+								Exception e = new Exception();
+								throw new excecoes.CombustivelIncompativelException("Veículo Inválido", e);
 							}
 						}
 					}else {
-						throw new excecoes.ValorInvalidoException();
+						Exception e = new Exception();
+						throw new excecoes.ValorInvalidoException("Veículo não Cadastrado",e);
 					}
 				}catch (Exception e) {
 					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Abastecimento", JOptionPane.ERROR_MESSAGE);

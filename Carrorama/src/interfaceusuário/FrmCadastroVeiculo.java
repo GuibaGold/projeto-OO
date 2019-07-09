@@ -1,4 +1,4 @@
-package proprietario;
+package interfaceusuário;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import proprietario.Veiculo;
 import util.util;
 
 import javax.swing.JLabel;
