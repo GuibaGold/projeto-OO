@@ -20,9 +20,11 @@ public class Veiculo {
 	private String tipoDeCombustivel;
 	private int combustivelAtual;
 	private String motorizacao;
-	private ArrayList <Despesas> despesasVeiculo = new ArrayList();
+	public ArrayList <Despesas> despesasVeiculo = new ArrayList();
 	
-	
+	public Veiculo(String placa) {
+		this.placa = placa;
+	}
 
 	public Veiculo(String marca, String cor, String modelo, String anoDeFabricacao, String anoDoModelo, String placa, String capacidadeTanque, String renavam, String tipoDeCombustivel, String combustivelAtual, String motorizacao) {
 		

@@ -30,6 +30,7 @@ public class InterfacePrincipal extends JFrame {
 		});
 	}
 
+	
 	/**
 	 * Create the frame.
 	 */
@@ -48,27 +49,27 @@ public class InterfacePrincipal extends JFrame {
 				new FrmCadastroVeiculo().setVisible(true);
 			}
 		});
-		btnCadastrarVeculo.setBounds(80, 36, 193, 25);
+		btnCadastrarVeculo.setBounds(54, 36, 154, 25);
 		getContentPane().add(btnCadastrarVeculo);
 		
 		JButton btnCadastrarAbastecimento = new JButton("Cadastrar Abastecimento");
-		btnCadastrarAbastecimento.setBounds(80, 73, 193, 25);
+		btnCadastrarAbastecimento.setBounds(54, 73, 207, 25);
 		getContentPane().add(btnCadastrarAbastecimento);
 		
 		JButton btnCadastrarDespesa = new JButton("Cadastrar Despesa");
-		btnCadastrarDespesa.setBounds(80, 110, 193, 25);
+		btnCadastrarDespesa.setBounds(54, 110, 162, 25);
 		getContentPane().add(btnCadastrarDespesa);
 		
 		JButton btnRelatrio = new JButton("Relatório");
-		btnRelatrio.setBounds(80, 147, 193, 25);
+		btnRelatrio.setBounds(54, 147, 95, 25);
 		getContentPane().add(btnRelatrio);
 		
 		JButton btnRelatrioDesempenho = new JButton("Relatório Desempenho");
-		btnRelatrioDesempenho.setBounds(80, 184, 193, 25);
+		btnRelatrioDesempenho.setBounds(54, 184, 188, 25);
 		getContentPane().add(btnRelatrioDesempenho);
 		
 		JButton btnSair = new JButton("Sair");
-		btnSair.setBounds(80, 221, 193, 25);
+		btnSair.setBounds(54, 221, 61, 25);
 		getContentPane().add(btnSair);
 		
 		

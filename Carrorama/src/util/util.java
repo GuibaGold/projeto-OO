@@ -1,5 +1,7 @@
 package util;
 
+import java.util.ArrayList;
+
 import proprietario.Veiculo;
 
 public class util {
@@ -31,5 +33,33 @@ public class util {
 		else {
 			return true;
 		}
+	}
+	
+	public static boolean ValidarCadastroAbastecimento(Veiculo veiculo) {
+		if(veiculo.getAnoDeFabricacao() > 2019) {
+			return false;
+		}else if(veiculo.getAnoDoModelo() > 2019) {
+			return false;
+		}else if(veiculo.getCapacidade() < 1) {
+			return false;
+		}else if(veiculo.getCombustivelAtual() > veiculo.getCapacidade()) {
+			return false;
+		}else if(veiculo.getCor() == "") {
+			return false;
+		}else if(veiculo.getMarca() == "") {
+			return false;
+		}else if(veiculo.getModelo() == "") {
+			return false;
+		}else if(veiculo.getMotorizacao() == "") {
+			return false;
+		}else if(veiculo.getPlaca() == "") {
+			return false;
+		}else if(veiculo.getRenavam() == "") {
+			return false;
+		}else if(veiculo.getTipoDeCombutivel() == "") {
+			return false;
+		}
+		
+		return true;
 	}
 }
