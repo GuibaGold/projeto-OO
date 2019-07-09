@@ -24,6 +24,10 @@ import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class FrmCadastroAbastecimento extends JFrame {
 
@@ -73,19 +77,18 @@ public class FrmCadastroAbastecimento extends JFrame {
 		contentPane.add(lblTipoDeCombustvel);
 		
 		txtPlacaVeiculo = new JTextField();
-		txtPlacaVeiculo.addInputMethodListener(new InputMethodListener() {
-			public void caretPositionChanged(InputMethodEvent arg0) {
-			}
-			public void inputMethodTextChanged(InputMethodEvent arg0) {
+		txtPlacaVeiculo.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				veiculoCadastrado = false;
 				for(Veiculo veiculo : veiculos) {
 					if(veiculo.getPlaca() == txtPlacaVeiculo.toString()) {
 						veiculoCadastrado = true;
-					}else {
-						veiculoCadastrado = false;
 					}
 				}
 			}
 		});
+		
 		txtPlacaVeiculo.setBounds(190, 10, 161, 19);
 		contentPane.add(txtPlacaVeiculo);
 		txtPlacaVeiculo.setColumns(10);
@@ -140,7 +143,7 @@ public class FrmCadastroAbastecimento extends JFrame {
 						throw new excecoes.ValorInvalidoException();
 					}
 				}catch (Exception e) {
-					JOptionPane.showMessageDialog(contentPane, e.getMessage());
+					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Abastecimento", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

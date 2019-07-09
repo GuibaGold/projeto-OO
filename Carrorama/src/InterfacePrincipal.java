@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import proprietario.FrmCadastroVeiculo;
+import despesas.FrmCadastroDespesa;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -52,24 +53,25 @@ public class InterfacePrincipal extends JFrame {
 		btnCadastrarVeculo.setBounds(54, 36, 154, 25);
 		getContentPane().add(btnCadastrarVeculo);
 		
-		JButton btnCadastrarAbastecimento = new JButton("Cadastrar Abastecimento");
-		btnCadastrarAbastecimento.setBounds(54, 73, 207, 25);
-		getContentPane().add(btnCadastrarAbastecimento);
-		
 		JButton btnCadastrarDespesa = new JButton("Cadastrar Despesa");
-		btnCadastrarDespesa.setBounds(54, 110, 162, 25);
+		btnCadastrarDespesa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmCadastroDespesa().setVisible(true);
+			}
+		});
+		btnCadastrarDespesa.setBounds(54, 67, 162, 25);
 		getContentPane().add(btnCadastrarDespesa);
 		
 		JButton btnRelatrio = new JButton("Relatório");
-		btnRelatrio.setBounds(54, 147, 95, 25);
+		btnRelatrio.setBounds(54, 104, 95, 25);
 		getContentPane().add(btnRelatrio);
 		
 		JButton btnRelatrioDesempenho = new JButton("Relatório Desempenho");
-		btnRelatrioDesempenho.setBounds(54, 184, 188, 25);
+		btnRelatrioDesempenho.setBounds(54, 141, 188, 25);
 		getContentPane().add(btnRelatrioDesempenho);
 		
 		JButton btnSair = new JButton("Sair");
-		btnSair.setBounds(54, 221, 61, 25);
+		btnSair.setBounds(54, 178, 61, 25);
 		getContentPane().add(btnSair);
 		
 		
