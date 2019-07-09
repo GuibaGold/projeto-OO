@@ -16,50 +16,28 @@ public class Veiculo {
 	private int anoDoModelo;
 	private String placa;
 	private int capacidade;
-	private int renavam;
-	private int tipoDeCombustivel;
+	private String renavam;
+	private String tipoDeCombustivel;
 	private int combustivelAtual;
-	private double motorizacao;
+	private String motorizacao;
 	private ArrayList <Despesas> despesasVeiculo = new ArrayList();
 	
-	public static Veiculo Init() {
-		try {
-			
-			String modeloVeiculo = JOptionPane.showInputDialog("Modelo:");
-			String corVeiculo = JOptionPane.showInputDialog("Cor do veículo:");
-			String marca = JOptionPane.showInputDialog("Marca:");
-			String anoDeFabricacao = JOptionPane.showInputDialog("Ano de Fabricação:");
-			String anoDoModelo = JOptionPane.showInputDialog("Ano do Modelo:");
-			String placa = JOptionPane.showInputDialog("Placa:");
-			String capacidade = JOptionPane.showInputDialog("Capacidade do Tanque:");
-			String renavam = JOptionPane.showInputDialog("Renavam:");
-			String[] opcoesCombustivel = {"1 - Gasolina", "2 - Álcool", "3 - Diesel", "4 - Flex"};
-			String tipoCombustivel = Integer.toString(JOptionPane.showOptionDialog(null,"Tipo de Combustível:", "Carrorama", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoesCombustivel, opcoesCombustivel[0]));;
-			String combustivelAtual = JOptionPane.showInputDialog("Quantidade de combustível atual:");
-			String motorizacao = JOptionPane.showInputDialog("Motorização do veículo:");
-			Veiculo novoVeiculo = new Veiculo(marca, corVeiculo, modeloVeiculo, anoDeFabricacao, anoDoModelo, placa, capacidade, renavam, tipoCombustivel, combustivelAtual,motorizacao);
-
-			return novoVeiculo;
-		}catch(Exception e){
-			return null;
-		}
-		
-		
-	}
+	
 
 	public Veiculo(String marca, String cor, String modelo, String anoDeFabricacao, String anoDoModelo, String placa, String capacidadeTanque, String renavam, String tipoDeCombustivel, String combustivelAtual, String motorizacao) {
 		
 		this.marca = marca;
 		this.cor = cor;
 		this.modelo = modelo;
+		
 		this.anoDeFabricacao = Integer.parseInt(anoDeFabricacao);
 		this.anoDoModelo = Integer.parseInt(anoDoModelo);
 		this.placa = placa;
 		this.capacidade = Integer.parseInt(capacidadeTanque);
-		this.renavam = Integer.parseInt(renavam);
-		this.tipoDeCombustivel = Integer.parseInt(tipoDeCombustivel);
+		this.renavam = renavam;
+		this.tipoDeCombustivel = tipoDeCombustivel;
 		this.combustivelAtual = Integer.parseInt(combustivelAtual);		
-		this.motorizacao = Integer.parseInt(motorizacao);
+		this.motorizacao = motorizacao;
 	}
 	
 	public Veiculo() {
@@ -94,11 +72,11 @@ public class Veiculo {
 		return capacidade;
 	}
 
-	public int getRenavam() {
+	public String getRenavam() {
 		return renavam;
 	}
 
-	public int getTipoDeCombutivel() {
+	public String getTipoDeCombutivel() {
 		return tipoDeCombustivel;
 	}
 
@@ -106,7 +84,7 @@ public class Veiculo {
 		return combustivelAtual;
 	}
 
-	public double getMotorizacao() {
+	public String getMotorizacao() {
 		return motorizacao;
 	}
 

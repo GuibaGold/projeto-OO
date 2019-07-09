@@ -3,9 +3,9 @@ import despesas.*;
 
 public class RelatorioSimples {
 	
-	private consumo.;
-	private custo;
-	private servicos;
+	private String consumo;
+	private String custo;
+	private String servicos;
 	
 	public RelatorioSimples() {
 		// TODO Auto-generated constructor stub
