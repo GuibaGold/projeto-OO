@@ -2,8 +2,10 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import proprietario.FrmCadastroVeiculo;
-import despesas.FrmCadastroDespesa;
+
+import interfaceusuário.FrmCadastroDespesa;
+import interfaceusuário.FrmCadastroVeiculo;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

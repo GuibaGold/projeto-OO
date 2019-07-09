@@ -1,4 +1,4 @@
-package despesas;
+package interfaceusuário;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -18,9 +19,9 @@ public class FrmCadastroDespesa extends JFrame {
 	 * Create the frame.
 	 */
 	public FrmCadastroDespesa() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Cadastro Despesa");
 		setBackground(new Color(119, 136, 153));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 239, 271);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

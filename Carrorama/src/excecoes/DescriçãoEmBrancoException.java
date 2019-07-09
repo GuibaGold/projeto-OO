@@ -6,7 +6,7 @@ public class DescriçãoEmBrancoException extends Exception {
 		
 	}
 
-	public DescriçãoEmBrancoException(String message, Throwable cause) {
+	public DescriçãoEmBrancoException(String message, Exception cause) {
 		super(message, cause);
 	}
 
