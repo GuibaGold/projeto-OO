@@ -3,15 +3,15 @@ package despesas;
 public class Abastecimento extends Despesas {
 	
 	private int tpDeCombustivel;
-	private int hodometro;
+	private int quilometragem;
 	private double valorDoLitro;
 	private boolean tanqueCheio;
 
-	public Abastecimento(String data, String nome, int tpDeCombustivel, int hodometro, double valorDoLitro, double valor,boolean tanqueCheio) {
+	public Abastecimento(String data, String nome, int tpDeCombustivel, int quilometragem, double valorDoLitro, double valor,boolean tanqueCheio) {
 
 		super(nome, data, valor, 1);
 		this.tpDeCombustivel = tpDeCombustivel;
-		this.hodometro = hodometro;
+		this.quilometragem = quilometragem;
 		this.valorDoLitro = valorDoLitro;
 		this.tanqueCheio = tanqueCheio;
 	}
@@ -20,8 +20,8 @@ public class Abastecimento extends Despesas {
 		return tpDeCombustivel;
 	}
 
-	public int getHodometro() {
-		return hodometro;
+	public int getquilometragem() {
+		return quilometragem;
 	}
 
 	public double getValorDoLitro() {
