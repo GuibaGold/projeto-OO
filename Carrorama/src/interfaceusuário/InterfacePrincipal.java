@@ -18,6 +18,7 @@ import java.awt.Window.Type;
 public class InterfacePrincipal extends JFrame {
 
 	private JPanel contentPane;
+	private static InterfacePrincipal frame = new InterfacePrincipal();
 
 	/**
 	 * Launch the application.
@@ -26,7 +27,7 @@ public class InterfacePrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InterfacePrincipal frame = new InterfacePrincipal();
+					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -75,6 +76,11 @@ public class InterfacePrincipal extends JFrame {
 		getContentPane().add(btnRelatrioDesempenho);
 		
 		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
 		btnSair.setBounds(54, 178, 61, 25);
 		getContentPane().add(btnSair);
 		

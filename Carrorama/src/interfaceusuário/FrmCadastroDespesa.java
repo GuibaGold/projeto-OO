@@ -38,22 +38,48 @@ public class FrmCadastroDespesa extends JFrame {
 		contentPane.add(btnCadastrarAbastecimento);
 		
 		JButton btnCadastrarFinanciamento = new JButton(" Financiamento");
+		btnCadastrarFinanciamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmCadastroFinanciamento().setVisible(true);
+			}
+		});
 		btnCadastrarFinanciamento.setBounds(12, 49, 207, 25);
 		contentPane.add(btnCadastrarFinanciamento);
 		
-		JButton btnNewButton = new JButton("Imposto");
-		btnNewButton.setBounds(12, 86, 207, 25);
-		contentPane.add(btnNewButton);
+		JButton btnImposto = new JButton("Imposto");
+		btnImposto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmCadastroImposto().setVisible(true);
+			}
+		});
+		btnImposto.setBounds(12, 86, 207, 25);
+		contentPane.add(btnImposto);
 		
-		JButton btnManuteno = new JButton("Manutenção");
-		btnManuteno.setBounds(12, 123, 207, 25);
-		contentPane.add(btnManuteno);
+		JButton btnManutencao = new JButton("Manutenção");
+		btnManutencao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmCadastroManutencao().setVisible(true);
+			}
+		});
+		btnManutencao.setBounds(12, 123, 207, 25);
+		contentPane.add(btnManutencao);
 		
 		JButton btnMulta = new JButton("Multa");
+		btnMulta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmCadastroMulta().setVisible(true);
+				
+			}
+		});
 		btnMulta.setBounds(12, 160, 207, 25);
 		contentPane.add(btnMulta);
 		
 		JButton btnSeguro = new JButton("Seguro");
+		btnSeguro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new FrmCadastroSeguro().setVisible(true);
+			}
+		});
 		btnSeguro.setBounds(12, 196, 207, 25);
 		contentPane.add(btnSeguro);
 	}

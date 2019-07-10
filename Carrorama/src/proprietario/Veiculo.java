@@ -34,10 +34,10 @@ public class Veiculo {
 		
 		this.anoDeFabricacao = Integer.parseInt(anoDeFabricacao);
 		this.anoDoModelo = Integer.parseInt(anoDoModelo);
-		this.placa = placa;
+		this.placa = placa.toUpperCase();
 		this.capacidade = Integer.parseInt(capacidadeTanque);
 		this.renavam = renavam;
-		this.tipoDeCombustivel = tipoDeCombustivel;
+		this.tipoDeCombustivel = tipoDeCombustivel.toUpperCase();
 		this.combustivelAtual = Integer.parseInt(combustivelAtual);		
 		this.motorizacao = motorizacao;
 	}

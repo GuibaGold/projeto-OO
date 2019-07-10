@@ -12,6 +12,10 @@ public abstract class Despesas {
 		this.valor = valor;
 	}
 	
+	public Despesas() {
+		
+	}
+	
 	public void setValor(double valor) {
 		this.valor = valor;
 	}

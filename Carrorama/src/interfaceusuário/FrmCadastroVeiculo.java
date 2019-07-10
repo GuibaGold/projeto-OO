@@ -31,7 +31,6 @@ public class FrmCadastroVeiculo extends JFrame {
 	private JTextField qtdeCombustivel;
 	private JTextField txtMotor;
 	private JTextField txtCor;
-	private JTextField txtQtdeCombustivel;
 	private ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
 	/**
 	 * Create the frame.
@@ -146,7 +145,7 @@ public class FrmCadastroVeiculo extends JFrame {
 				try {
 					Veiculo novoVeiculo = new Veiculo(txtModelo.toString(), txtCor.toString(), txtMarca.toString(),
 							comboAnoFabricacao.getSelectedItem().toString(), comboAnoModelo.getSelectedItem().toString(), txtPlaca.toString(), 
-							txtCapacidadeTanque.toString(), txtRenavam.toString(), comboTipoCombustivel.getSelectedItem().toString(), txtQtdeCombustivel.toString(),
+							txtCapacidadeTanque.toString(), txtRenavam.toString(), comboTipoCombustivel.getSelectedItem().toString(), qtdeCombustivel.toString(),
 							txtMotor.toString());
 					
 					if(util.ValidarCamposCadastroVeiculo(novoVeiculo)) {
@@ -172,15 +171,6 @@ public class FrmCadastroVeiculo extends JFrame {
 		txtCor.setBounds(77, 291, 124, 19);
 		contentPane.add(txtCor);
 		txtCor.setColumns(10);
-		
-		JLabel lblQuantidadeCombustvel = new JLabel("Quantidade Combustível");
-		lblQuantidadeCombustvel.setBounds(12, 320, 189, 15);
-		contentPane.add(lblQuantidadeCombustvel);
-		
-		txtQtdeCombustivel = new JTextField();
-		txtQtdeCombustivel.setBounds(204, 322, 46, 19);
-		contentPane.add(txtQtdeCombustivel);
-		txtQtdeCombustivel.setColumns(10);
 		
 		
 		
