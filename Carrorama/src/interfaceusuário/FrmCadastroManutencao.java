@@ -109,7 +109,7 @@ public class FrmCadastroManutencao extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(veiculoCadastrado) {
-						Manutencao manutencaoCadastro = new Manutencao("Manutencao - " + txtNomeManutencao.getText(), txtData.toString(), Double.parseDouble(txtValor.toString()), Double.parseDouble(txtQuilometragem.toString()), Double.parseDouble(txtValidade.toString()));
+						Manutencao manutencaoCadastro = new Manutencao("Manutencao - " + txtNomeManutencao.getText(), txtData.getText(), Double.parseDouble(txtValor.getText()), Double.parseDouble(txtQuilometragem.getText()), Double.parseDouble(txtValidade.getText()));
 						for(Veiculo veiculo : veiculos) {
 							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()) &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
 								Veiculo novoVeiculo = veiculo;
@@ -123,7 +123,7 @@ public class FrmCadastroManutencao extends JFrame {
 							}
 							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Manutenção Cadastrada com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
+						JOptionPane.showConfirmDialog(contentPane, "Manutenção Cadastrada com Sucesso!", "Cadastro Abastecimento", JOptionPane.PLAIN_MESSAGE);
 					}else {
 						Exception e = new Exception();
 						throw new excecoes.DescriçãoEmBrancoException("Veículo não cadastrado ou Algum campo está vazio!", e);
