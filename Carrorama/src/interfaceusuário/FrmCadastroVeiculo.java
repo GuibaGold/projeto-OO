@@ -160,7 +160,6 @@ public class FrmCadastroVeiculo extends JFrame {
 					else {
 						throw new excecoes.DescriçãoEmBrancoException();
 					}
-					
 				}catch (Exception e) {
 					JOptionPane.showMessageDialog(contentPane, "Erro ao cadastrar Veículo" );
 				}
