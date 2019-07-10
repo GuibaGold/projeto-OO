@@ -34,6 +34,6 @@ public abstract class Despesas {
 
 	@Override
 	public String toString() {
-		return "nome=" + nome + ", data=" + data + ", valor=" + valor;
+		return "Despesa = " + nome + ", data = " + data + ", valor = " + valor;
 	}
 }

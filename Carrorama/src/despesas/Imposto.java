@@ -34,7 +34,7 @@ public class Imposto extends Despesas {
 
 	@Override
 	public String toString() {
-		return "Imposto ["+ super.toString() + " tipoImposto=" + tipoImposto + ", qtdParcelas=" + qtdParcelas + ", valorParcela=" + valorParcela
+		return "Imposto ["+ super.toString() + " tipoImposto = " + tipoImposto + ", qtdParcelas = " + qtdParcelas + ", valorParcela = " + valorParcela
 				+ "]";
 	}
 	

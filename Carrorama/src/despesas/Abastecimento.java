@@ -35,8 +35,8 @@ public class Abastecimento extends Despesas {
 
 	@Override
 	public String toString() {
-		return "Abastecimento ["+ super.toString() +" tpDeCombustivel=" + tpDeCombustivel + ", quilometragem=" + quilometragem
-				+ ", valorDoLitro=" + valorDoLitro + ", tanqueCheio=" + tanqueCheio + "]";
+		return "Abastecimento ["+ super.toString() +", tpDeCombustivel = " + tpDeCombustivel + ", quilometragem = " + quilometragem
+				+ ", valorDoLitro = " + valorDoLitro + ", tanqueCheio = " + tanqueCheio + "]";
 	}
 
 
