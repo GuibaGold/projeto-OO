@@ -3,6 +3,7 @@ package interfaceusuário;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -36,13 +37,11 @@ public class FrmCadastroImposto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmCadastroImposto() {
+	public FrmCadastroImposto(List<Veiculo> veiculos) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Imposto");
 		setBackground(new Color(119, 136, 153));
-		ArrayList<Veiculo> veiculos;
-		FrmCadastroVeiculo frameVeiculo = new FrmCadastroVeiculo();
-		veiculos = frameVeiculo.getListVeiculos();
-		frameVeiculo.dispose();
+		
 		
 		setBounds(100, 100, 266, 300);
 		contentPane = new JPanel();
@@ -59,46 +58,43 @@ public class FrmCadastroImposto extends JFrame {
 		comboTpImposto.setBounds(153, 7, 79, 24);
 		contentPane.add(comboTpImposto);
 		
+		JComboBox comboVeiculos = new JComboBox();
+		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
+		for(Veiculo veiculo : veiculos) {
+
+			modelo.addElement(veiculo.getPlaca());
+		}
+		comboVeiculos.setModel(modelo);
+		comboVeiculos.setBounds(153, 42, 79, 24);
+		contentPane.add(comboVeiculos);
+		
 		JLabel lblPlacaVeculo = new JLabel("Placa Veículo");
 		lblPlacaVeculo.setBounds(12, 47, 106, 15);
 		contentPane.add(lblPlacaVeculo);
 		
-		txtPlacaVeiculo = new JTextField();
-		txtPlacaVeiculo.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				for(Veiculo veiculo : veiculos) {
-					if(veiculo.getPlaca() == txtPlacaVeiculo.toString()) {
-						veiculoCadastrado = true;
-					}
-				}
-			}
-		});
-		txtPlacaVeiculo.setBounds(146, 45, 86, 19);
-		contentPane.add(txtPlacaVeiculo);
-		txtPlacaVeiculo.setColumns(10);
+		
 		
 		JLabel lblDataPagamento = new JLabel("Data Pagamento:");
-		lblDataPagamento.setBounds(12, 68, 127, 15);
+		lblDataPagamento.setBounds(12, 139, 127, 15);
 		contentPane.add(lblDataPagamento);
 		
 		txtDataPagamento = new JTextField();
-		txtDataPagamento.setBounds(146, 66, 86, 19);
+		txtDataPagamento.setBounds(146, 137, 86, 19);
 		contentPane.add(txtDataPagamento);
 		txtDataPagamento.setColumns(10);
 		
 		JLabel lblParcelas = new JLabel("Parcelas:");
-		lblParcelas.setBounds(12, 102, 79, 15);
+		lblParcelas.setBounds(12, 83, 79, 15);
 		contentPane.add(lblParcelas);
 		
 		JComboBox comboQtdeParcelas = new JComboBox();
 		comboQtdeParcelas.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
 		comboQtdeParcelas.setMaximumRowCount(12);
-		comboQtdeParcelas.setBounds(153, 97, 79, 24);
+		comboQtdeParcelas.setBounds(153, 78, 79, 24);
 		contentPane.add(comboQtdeParcelas);
 		
 		JLabel lblValorParcela = new JLabel("Valor Parcela:");
-		lblValorParcela.setBounds(12, 129, 106, 15);
+		lblValorParcela.setBounds(12, 110, 106, 15);
 		contentPane.add(lblValorParcela);
 		
 		txtValorParcela = new JTextField();
@@ -110,17 +106,17 @@ public class FrmCadastroImposto extends JFrame {
 				txtValorTotal.setText(String.valueOf(qtdeParcelas * valorParcela));
 			}
 		});
-		txtValorParcela.setBounds(146, 127, 86, 19);
+		txtValorParcela.setBounds(146, 108, 86, 19);
 		contentPane.add(txtValorParcela);
 		txtValorParcela.setColumns(10);
 		
 		JLabel lblValorTotal = new JLabel("Valor Total:");
-		lblValorTotal.setBounds(12, 189, 102, 15);
+		lblValorTotal.setBounds(12, 170, 102, 15);
 		contentPane.add(lblValorTotal);
 		
 		txtValorTotal = new JTextField();
 		txtValorTotal.setEditable(false);
-		txtValorTotal.setBounds(146, 187, 86, 19);
+		txtValorTotal.setBounds(146, 168, 86, 19);
 		contentPane.add(txtValorTotal);
 		txtValorTotal.setColumns(10);
 		
@@ -132,7 +128,7 @@ public class FrmCadastroImposto extends JFrame {
 						Imposto impostoCadastro = new Imposto("Imposto", txtDataPagamento.toString(), Double.parseDouble(txtValorParcela.toString()), 
 								Integer.parseInt(comboQtdeParcelas.getSelectedItem().toString()), comboTpImposto.getSelectedItem().toString());
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == txtPlacaVeiculo.toString() &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
+							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
 								int indiceVeiculo = veiculos.indexOf(veiculo);
 								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
 								novoVeiculo.despesasVeiculo.add(impostoCadastro);

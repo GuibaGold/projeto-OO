@@ -11,13 +11,17 @@ import proprietario.Veiculo;
 import util.util;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class FrmCadastroVeiculo extends JFrame {
@@ -31,13 +35,12 @@ public class FrmCadastroVeiculo extends JFrame {
 	private JTextField qtdeCombustivel;
 	private JTextField txtMotor;
 	private JTextField txtCor;
-	private ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
+
 	/**
 	 * Create the frame.
 	 */
-	public FrmCadastroVeiculo() {
-		
-		
+	public FrmCadastroVeiculo(List<Veiculo> veiculos) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Cadastro Veículo");
 		setBackground(new Color(119, 136, 153));
 		setBounds(100, 100, 390, 402);
@@ -138,26 +141,30 @@ public class FrmCadastroVeiculo extends JFrame {
 		txtMotor.setBounds(251, 264, 124, 19);
 		contentPane.add(txtMotor);
 		txtMotor.setColumns(10);
+	
+		
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					Veiculo novoVeiculo = new Veiculo(txtModelo.toString(), txtCor.toString(), txtMarca.toString(),
-							comboAnoFabricacao.getSelectedItem().toString(), comboAnoModelo.getSelectedItem().toString(), txtPlaca.toString(), 
-							txtCapacidadeTanque.toString(), txtRenavam.toString(), comboTipoCombustivel.getSelectedItem().toString(), qtdeCombustivel.toString(),
-							txtMotor.toString());
+					Veiculo novoVeiculo = new Veiculo(txtModelo.getText(), txtCor.getText(), txtMarca.getText(),
+							comboAnoFabricacao.getSelectedItem().toString(), comboAnoModelo.getSelectedItem().toString(), txtPlaca.getText(), 
+							txtCapacidadeTanque.getText(), txtRenavam.getText(), comboTipoCombustivel.getSelectedItem().toString(), qtdeCombustivel.getText(),
+							txtMotor.getText());
 					
 					if(util.ValidarCamposCadastroVeiculo(novoVeiculo)) {
 						veiculos.add(novoVeiculo);
+						JOptionPane.showMessageDialog(contentPane, "Cadastro Efetuado com sucesso", "Cadastro Veículo", JOptionPane.PLAIN_MESSAGE);
 					}
 					else {
 						throw new excecoes.DescriçãoEmBrancoException();
 					}
+					
 				}catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(contentPane, "Erro ao cadastrar Veículo" );
 				}
-				
+			
 			}
 		});
 		btnSalvar.setBounds(261, 335, 114, 25);
@@ -176,12 +183,4 @@ public class FrmCadastroVeiculo extends JFrame {
 		
 	}
 	
-	public ArrayList<Veiculo> getListVeiculos() {
-		if(veiculos != null) {
-			return veiculos;
-		}
-		else {
-			return null;
-		}
-	}
 }

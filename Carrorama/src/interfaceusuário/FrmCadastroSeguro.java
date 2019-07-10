@@ -15,10 +15,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Color;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -35,12 +40,10 @@ public class FrmCadastroSeguro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmCadastroSeguro() {
+	public FrmCadastroSeguro(List<Veiculo> veiculos) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Seguro");
-		ArrayList<Veiculo> veiculos;
-		FrmCadastroVeiculo frameVeiculo = new FrmCadastroVeiculo();
-		veiculos = frameVeiculo.getListVeiculos();
-		frameVeiculo.dispose();
+		
 		
 		setBackground(new Color(119, 136, 153));
 		setBounds(100, 100, 385, 185);
@@ -53,20 +56,15 @@ public class FrmCadastroSeguro extends JFrame {
 		lblPlacaVeculo.setBounds(12, 6, 104, 15);
 		contentPane.add(lblPlacaVeculo);
 		
-		txtPlacaVeiculo = new JTextField();
-		txtPlacaVeiculo.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				for(Veiculo veiculo : veiculos) {
-					if(veiculo.getPlaca() == txtPlacaVeiculo.toString()) {
-						veiculoCadastrado = true;
-					}
-				}
-			}
-		});
-		txtPlacaVeiculo.setBounds(241, 4, 124, 19);
-		contentPane.add(txtPlacaVeiculo);
-		txtPlacaVeiculo.setColumns(10);
+		JComboBox comboVeiculos = new JComboBox();
+		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
+		for(Veiculo veiculo : veiculos) {
+
+			modelo.addElement(veiculo.getPlaca());
+		}
+		comboVeiculos.setModel(modelo);
+		comboVeiculos.setBounds(191, 6, 161, 15);
+		contentPane.add(comboVeiculos);
 		
 		JLabel lblNomeSeguradora = new JLabel("Nome Seguradora:");
 		lblNomeSeguradora.setBounds(12, 29, 147, 15);
@@ -103,7 +101,7 @@ public class FrmCadastroSeguro extends JFrame {
 						Seguro seguroCadastro = new Seguro("Seguro", txtData.toString(), Double.parseDouble(txtValor.toString()), 
 								txtSeguradora.toString(), txtNumeroApolice.toString());
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == txtPlacaVeiculo.toString() && util.ValidarCamposCadastroVeiculo(veiculo)) {
+							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() && util.ValidarCamposCadastroVeiculo(veiculo)) {
 								int indiceVeiculo = veiculos.indexOf(veiculo);
 								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
 								novoVeiculo.despesasVeiculo.add(seguroCadastro);

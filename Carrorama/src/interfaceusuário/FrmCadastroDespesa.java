@@ -7,9 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import proprietario.Veiculo;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class FrmCadastroDespesa extends JFrame {
@@ -18,7 +22,7 @@ public class FrmCadastroDespesa extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmCadastroDespesa() {
+	public FrmCadastroDespesa(ArrayList<Veiculo> veiculos) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Cadastro Despesa");
 		setBackground(new Color(119, 136, 153));
@@ -31,7 +35,8 @@ public class FrmCadastroDespesa extends JFrame {
 		JButton btnCadastrarAbastecimento = new JButton("Abastecimento");
 		btnCadastrarAbastecimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmCadastroAbastecimento().setVisible(true);
+				FrmCadastroAbastecimento abastecimento = new FrmCadastroAbastecimento(veiculos);
+				abastecimento.setVisible(true);
 			}
 		});
 		btnCadastrarAbastecimento.setBounds(12, 12, 207, 25);
@@ -40,7 +45,7 @@ public class FrmCadastroDespesa extends JFrame {
 		JButton btnCadastrarFinanciamento = new JButton(" Financiamento");
 		btnCadastrarFinanciamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmCadastroFinanciamento().setVisible(true);
+				new FrmCadastroFinanciamento(veiculos).setVisible(true);
 			}
 		});
 		btnCadastrarFinanciamento.setBounds(12, 49, 207, 25);
@@ -49,7 +54,7 @@ public class FrmCadastroDespesa extends JFrame {
 		JButton btnImposto = new JButton("Imposto");
 		btnImposto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmCadastroImposto().setVisible(true);
+				new FrmCadastroImposto(veiculos).setVisible(true);
 			}
 		});
 		btnImposto.setBounds(12, 86, 207, 25);
@@ -58,7 +63,7 @@ public class FrmCadastroDespesa extends JFrame {
 		JButton btnManutencao = new JButton("Manutenção");
 		btnManutencao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmCadastroManutencao().setVisible(true);
+				new FrmCadastroManutencao(veiculos).setVisible(true);
 			}
 		});
 		btnManutencao.setBounds(12, 123, 207, 25);
@@ -67,7 +72,7 @@ public class FrmCadastroDespesa extends JFrame {
 		JButton btnMulta = new JButton("Multa");
 		btnMulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmCadastroMulta().setVisible(true);
+				new FrmCadastroMulta(veiculos).setVisible(true);
 				
 			}
 		});
@@ -77,7 +82,7 @@ public class FrmCadastroDespesa extends JFrame {
 		JButton btnSeguro = new JButton("Seguro");
 		btnSeguro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmCadastroSeguro().setVisible(true);
+				new FrmCadastroSeguro(veiculos).setVisible(true);
 			}
 		});
 		btnSeguro.setBounds(12, 196, 207, 25);

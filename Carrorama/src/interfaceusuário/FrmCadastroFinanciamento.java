@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -37,13 +38,10 @@ public class FrmCadastroFinanciamento extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmCadastroFinanciamento() {
+	public FrmCadastroFinanciamento(List<Veiculo> veiculos) {
 		setTitle("Financiamento");
 		
-		ArrayList<Veiculo> veiculos;
-		FrmCadastroVeiculo frameVeiculo = new FrmCadastroVeiculo();
-		veiculos = frameVeiculo.getListVeiculos();
-		frameVeiculo.dispose();
+		
 		
 		setBackground(new Color(119, 136, 153));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -90,6 +88,16 @@ public class FrmCadastroFinanciamento extends JFrame {
 		contentPane.add(txtTotal);
 		txtTotal.setColumns(10);
 		
+		JComboBox comboVeiculos = new JComboBox();
+		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
+		for(Veiculo veiculo : veiculos) {
+
+			modelo.addElement(veiculo.getPlaca());
+		}
+		comboVeiculos.setModel(modelo);
+		comboVeiculos.setBounds(117, 141, 91, 24);
+		contentPane.add(comboVeiculos);
+		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -97,7 +105,7 @@ public class FrmCadastroFinanciamento extends JFrame {
 					if(veiculoCadastrado) {
 						Financiamento seguroCadastro = new Financiamento("Financiamento", txtData.toString(), Double.parseDouble(txtValorParcela.toString()), Integer.parseInt(comboParcelas.getSelectedItem().toString()));
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == txtPlacaVeiculo.toString() && util.ValidarCamposCadastroVeiculo(veiculo)) {
+							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() && util.ValidarCamposCadastroVeiculo(veiculo)) {
 								int indiceVeiculo = veiculos.indexOf(veiculo);
 								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
 								novoVeiculo.despesasVeiculo.add(seguroCadastro);
@@ -137,19 +145,6 @@ public class FrmCadastroFinanciamento extends JFrame {
 		lblPlacaVeculo.setBounds(14, 146, 109, 15);
 		contentPane.add(lblPlacaVeculo);
 		
-		txtPlacaVeiculo = new JTextField();
-		txtPlacaVeiculo.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				for(Veiculo veiculo : veiculos) {
-					if(veiculo.getPlaca() == txtPlacaVeiculo.toString()) {
-						veiculoCadastrado = true;
-					}
-				}
-			}
-		});
-		txtPlacaVeiculo.setBounds(125, 144, 80, 19);
-		contentPane.add(txtPlacaVeiculo);
-		txtPlacaVeiculo.setColumns(10);
+		
 	}
 }

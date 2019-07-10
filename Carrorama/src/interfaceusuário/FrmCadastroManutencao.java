@@ -16,10 +16,14 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -36,13 +40,11 @@ public class FrmCadastroManutencao extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmCadastroManutencao() {
+	public FrmCadastroManutencao(List<Veiculo> veiculos) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Manutenção");
 		
-		ArrayList<Veiculo> veiculos;
-		FrmCadastroVeiculo frameVeiculo = new FrmCadastroVeiculo();
-		veiculos = frameVeiculo.getListVeiculos();
-		frameVeiculo.dispose();
+		
 		
 		setBackground(new Color(119, 136, 153));
 		setBounds(100, 100, 321, 226);
@@ -55,20 +57,15 @@ public class FrmCadastroManutencao extends JFrame {
 		lblPlacaVeculo.setBounds(12, 12, 106, 15);
 		contentPane.add(lblPlacaVeculo);
 		
-		txtPlacaVeiculo = new JTextField();
-		txtPlacaVeiculo.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				for(Veiculo veiculo : veiculos) {
-					if(veiculo.getPlaca() == txtPlacaVeiculo.toString()) {
-						veiculoCadastrado = true;
-					}
-				}
-			}
-		});
-		txtPlacaVeiculo.setBounds(161, 13, 124, 19);
-		contentPane.add(txtPlacaVeiculo);
-		txtPlacaVeiculo.setColumns(10);
+		JComboBox comboVeiculos = new JComboBox();
+		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
+		for(Veiculo veiculo : veiculos) {
+
+			modelo.addElement(veiculo.getPlaca());
+		}
+		comboVeiculos.setModel(modelo);
+		comboVeiculos.setBounds(166, 7, 132, 24);
+		contentPane.add(comboVeiculos);
 		
 		JLabel lblQuilometragemAtual = new JLabel("Quilometragem Atual:");
 		lblQuilometragemAtual.setBounds(12, 39, 169, 15);
@@ -104,7 +101,7 @@ public class FrmCadastroManutencao extends JFrame {
 					if(veiculoCadastrado) {
 						Manutencao manutencaoCadastro = new Manutencao("Manutencao", txtData.toString(), Double.parseDouble(txtValor.toString()), Double.parseDouble(txtQuilometragem.toString()), Double.parseDouble(txtValidade.toString()));
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == txtPlacaVeiculo.toString() &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
+							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
 								int indiceVeiculo = veiculos.indexOf(veiculo);
 								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
 								novoVeiculo.despesasVeiculo.add(manutencaoCadastro);
