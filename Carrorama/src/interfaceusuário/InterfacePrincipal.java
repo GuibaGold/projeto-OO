@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import interfaceusuário.FrmCadastroDespesa;
 import interfaceusuário.FrmCadastroVeiculo;
 import proprietario.Veiculo;
+import relatorios.RelatorioDeDesempenho;
 import relatorios.RelatorioSimples;
 
 import javax.swing.JButton;
@@ -86,6 +87,11 @@ public class InterfacePrincipal extends JFrame {
 		getContentPane().add(btnRelatrio);
 		
 		JButton btnRelatrioDesempenho = new JButton("Relatório Desempenho");
+		btnRelatrioDesempenho.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RelatorioDeDesempenho.RelDesempenho(veiculos);
+			}
+		});
 		btnRelatrioDesempenho.setBounds(54, 141, 188, 25);
 		getContentPane().add(btnRelatrioDesempenho);
 		
