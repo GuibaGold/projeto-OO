@@ -1,9 +1,14 @@
 package relatorios;
 
-public class RelatorioDeDesempenho {
+import java.util.List;
 
+import despesas.Despesas;
+
+public class RelatorioDeDesempenho {
+	private List<Despesas> despesa;
+	
 	public RelatorioDeDesempenho() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }

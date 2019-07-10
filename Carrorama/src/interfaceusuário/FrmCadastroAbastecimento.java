@@ -3,6 +3,7 @@ package interfaceusuário;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -33,23 +34,17 @@ public class FrmCadastroAbastecimento extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtDataAbastecimento;
-	private JTextField txtPlacaVeiculo;
 	private JTextField txtQuilometragem;
 	private JTextField txtValorLitro;
 	private boolean veiculoCadastrado;
 	private JTextField txtValorTotal;
-
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public FrmCadastroAbastecimento() {
-		
-		ArrayList<Veiculo> veiculos;
-		FrmCadastroVeiculo frameVeiculo = new FrmCadastroVeiculo();
-		veiculos = frameVeiculo.getListVeiculos();
-		frameVeiculo.dispose();
+	public FrmCadastroAbastecimento(ArrayList<Veiculo> veiculos) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		setTitle("Abastecimento");
 		setBackground(new Color(119, 136, 153));
@@ -76,23 +71,6 @@ public class FrmCadastroAbastecimento extends JFrame {
 		lblTipoDeCombustvel.setBounds(22, 66, 150, 15);
 		contentPane.add(lblTipoDeCombustvel);
 		
-		txtPlacaVeiculo = new JTextField();
-		txtPlacaVeiculo.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				veiculoCadastrado = false;
-				for(Veiculo veiculo : veiculos) {
-					if(veiculo.getPlaca() == txtPlacaVeiculo.toString()) {
-						veiculoCadastrado = true;
-					}
-				}
-			}
-		});
-		
-		txtPlacaVeiculo.setBounds(190, 10, 161, 19);
-		contentPane.add(txtPlacaVeiculo);
-		txtPlacaVeiculo.setColumns(10);
-		
 		JLabel lblQuilometragem = new JLabel("Quilometragem:");
 		lblQuilometragem.setBounds(22, 93, 150, 15);
 		contentPane.add(lblQuilometragem);
@@ -106,6 +84,29 @@ public class FrmCadastroAbastecimento extends JFrame {
 		comboTipoCombustivel.setModel(new DefaultComboBoxModel(new String[] {"Gasolina", "Álcool", "Diesel"}));
 		comboTipoCombustivel.setBounds(190, 61, 161, 24);
 		contentPane.add(comboTipoCombustivel);
+		
+		JComboBox comboVeiculos = new JComboBox();
+		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
+		for(Veiculo veiculo : veiculos) {
+			
+			modelo.addElement(veiculo.getPlaca());
+		}
+		comboVeiculos.setModel(modelo);
+		comboVeiculos.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				for(Veiculo veiculo : veiculos) {
+					if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString()) {
+						veiculoCadastrado = true;
+					}
+				}
+			}
+		});
+		
+		comboVeiculos.setBounds(190, 7, 161, 24);
+		contentPane.add(comboVeiculos);
+		
+		
 		
 		JLabel lblValorDoCombustivel = new JLabel("Valor do combustivel / L (R$):");
 		lblValorDoCombustivel.setBounds(22, 120, 216, 15);
@@ -125,10 +126,11 @@ public class FrmCadastroAbastecimento extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(veiculoCadastrado) {
-						Abastecimento abastecimentoCadastro = new Abastecimento(txtDataAbastecimento.toString(), "Abastecimento - " + txtPlacaVeiculo.toString(), 
-								Integer.parseInt(comboTipoCombustivel.getSelectedItem().toString()), Integer.parseInt(txtQuilometragem.toString()), Double.parseDouble(txtValorLitro.toString()), Double.parseDouble(txtValorTotal.toString()), chckbxTanqueCheio.isSelected());
+						Abastecimento abastecimentoCadastro = new Abastecimento(txtDataAbastecimento.getText(), "Abastecimento", 
+								comboTipoCombustivel.getSelectedItem().toString(), Integer.parseInt(txtQuilometragem.getText()), Double.parseDouble(txtValorLitro.getText()), Double.parseDouble(txtValorTotal.getText()), chckbxTanqueCheio.isSelected());
+						double quantidadeAbastecida = Double.parseDouble(txtValorTotal.getText()) / Double.parseDouble(txtValorLitro.getText());
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == txtPlacaVeiculo.toString() && veiculo.getTipoDeCombutivel() == comboTipoCombustivel.getSelectedItem().toString()&& util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString())) {
+							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() && veiculo.getTipoDeCombutivel() == comboTipoCombustivel.getSelectedItem().toString()&& util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString(), quantidadeAbastecida)) {
 								int indiceVeiculo = veiculos.indexOf(veiculo);
 								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
 								novoVeiculo.despesasVeiculo.add(abastecimentoCadastro);
@@ -162,5 +164,7 @@ public class FrmCadastroAbastecimento extends JFrame {
 		txtValorTotal.setBounds(297, 171, 54, 19);
 		contentPane.add(txtValorTotal);
 		txtValorTotal.setColumns(10);
+		
+		
 	}
 }

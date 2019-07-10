@@ -16,10 +16,14 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -36,12 +40,10 @@ public class FrmCadastroMulta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmCadastroMulta() {
+	public FrmCadastroMulta(List<Veiculo> veiculos) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		ArrayList<Veiculo> veiculos;
-		FrmCadastroVeiculo frameVeiculo = new FrmCadastroVeiculo();
-		veiculos = frameVeiculo.getListVeiculos();
-		frameVeiculo.dispose();
+		
 		
 		setTitle("Multa");
 		setBackground(new Color(119, 136, 153));
@@ -69,6 +71,16 @@ public class FrmCadastroMulta extends JFrame {
 		contentPane.add(txtValor);
 		txtValor.setColumns(10);
 		
+		JComboBox comboVeiculos = new JComboBox();
+		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
+		for(Veiculo veiculo : veiculos) {
+
+			modelo.addElement(veiculo.getPlaca());
+		}
+		comboVeiculos.setModel(modelo);
+		comboVeiculos.setBounds(125, 69, 161, 24);
+		contentPane.add(comboVeiculos);
+		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -76,7 +88,7 @@ public class FrmCadastroMulta extends JFrame {
 					if(veiculoCadastrado) {
 						Multa multaCadastro = new Multa("Multa", txtData.toString(), Double.parseDouble(txtValor.toString()));
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == txtPlacaVeiculo.toString() &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
+							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
 								int indiceVeiculo = veiculos.indexOf(veiculo);
 								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
 								novoVeiculo.despesasVeiculo.add(multaCadastro);
@@ -99,27 +111,14 @@ public class FrmCadastroMulta extends JFrame {
 				}
 			}
 		});
-		btnSalvar.setBounds(143, 94, 114, 25);
+		btnSalvar.setBounds(172, 105, 114, 25);
 		contentPane.add(btnSalvar);
 		
 		JLabel lblPlacaVeculo = new JLabel("Placa Veículo:");
-		lblPlacaVeculo.setBounds(17, 64, 114, 15);
+		lblPlacaVeculo.setBounds(12, 75, 114, 15);
 		contentPane.add(lblPlacaVeculo);
 		
-		txtPlacaVeiculo = new JTextField();
-		txtPlacaVeiculo.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				for(Veiculo veiculo : veiculos) {
-					if(veiculo.getPlaca() == txtPlacaVeiculo.toString()) {
-						veiculoCadastrado = true;
-					}
-				}
-			}
-		});
-		txtPlacaVeiculo.setBounds(153, 62, 124, 19);
-		contentPane.add(txtPlacaVeiculo);
-		txtPlacaVeiculo.setColumns(10);
+		
 	}
 
 }

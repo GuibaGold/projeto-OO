@@ -3,13 +3,18 @@ package interfaceusuário;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import interfaceusuário.FrmCadastroDespesa;
 import interfaceusuário.FrmCadastroVeiculo;
+import proprietario.Veiculo;
+import relatorios.RelatorioSimples;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,6 +24,8 @@ public class InterfacePrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private static InterfacePrincipal frame = new InterfacePrincipal();
+	private ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
+	private FrmCadastroVeiculo cadastroVeiculo = new FrmCadastroVeiculo(veiculos);
 
 	/**
 	 * Launch the application.
@@ -52,7 +59,7 @@ public class InterfacePrincipal extends JFrame {
 		JButton btnCadastrarVeculo = new JButton("Cadastrar Veículo");
 		btnCadastrarVeculo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmCadastroVeiculo().setVisible(true);
+				cadastroVeiculo.setVisible(true);
 			}
 		});
 		btnCadastrarVeculo.setBounds(54, 36, 154, 25);
@@ -61,13 +68,21 @@ public class InterfacePrincipal extends JFrame {
 		JButton btnCadastrarDespesa = new JButton("Cadastrar Despesa");
 		btnCadastrarDespesa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new FrmCadastroDespesa().setVisible(true);
+				FrmCadastroDespesa frame = new FrmCadastroDespesa(veiculos);
+				frame.setVisible(true);
+				
 			}
 		});
 		btnCadastrarDespesa.setBounds(54, 67, 162, 25);
 		getContentPane().add(btnCadastrarDespesa);
 		
 		JButton btnRelatrio = new JButton("Relatório");
+		btnRelatrio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RelatorioSimples relatorio = new RelatorioSimples(veiculos);
+				JOptionPane.showMessageDialog(contentPane, relatorio.getNomesServicos());
+			}
+		});
 		btnRelatrio.setBounds(54, 104, 95, 25);
 		getContentPane().add(btnRelatrio);
 		

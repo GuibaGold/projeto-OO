@@ -2,49 +2,61 @@ package util;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import proprietario.Veiculo;
 
 public class util {
 	
 	
-	
-	public static boolean ValidarCamposCadastroVeiculo(Veiculo veiculoCadastro) {
-		if(veiculoCadastro.getMarca() == "") {
-			return false;
-		}else if(veiculoCadastro.getModelo() == "") {
-			return false;
-		}else if(veiculoCadastro.getCor() == "") {
-			return false;
-		}else if(veiculoCadastro.getAnoDeFabricacao() > 2019) {
-			return false;
-		}else if(veiculoCadastro.getAnoDoModelo() > 2019) {
-			return false;
-		}else if(veiculoCadastro.getCapacidade() < 1) {
-			return false;
-		}else if(veiculoCadastro.getCombustivelAtual() < 0){
-			return false;
-		}else if(veiculoCadastro.getMotorizacao() == "") {
-			return false;
-		}else if(veiculoCadastro.getRenavam().length() < 11 || veiculoCadastro.getRenavam().length() > 11) {
-			return false;
-		}else if(veiculoCadastro.getPlaca() == "") {
-			return false;
-		}else if(veiculoCadastro.getTipoDeCombutivel() == "") {
-			return false;
-		}
-		else {
-			return true;
-		}
+	public int getIntegerValue(String s) {
+	    if ( "".equals(s) ) {
+	        return 0;
+	    }
+	    return Integer.parseInt(s);
 	}
 	
-	public static boolean ValidarCadastroAbastecimento(Veiculo veiculo, String tipoCombustivel) {
+	public static boolean ValidarCamposCadastroVeiculo(Veiculo veiculoCadastro) {
+		try {
+			String capacidade = veiculoCadastro.getCapacidade();
+			String combustivelAtual = veiculoCadastro.getCombustivelAtual();
+			if(veiculoCadastro.getMarca() == "") {
+				return false;
+			}else if(veiculoCadastro.getModelo() == "") {
+				return false;
+			}else if(veiculoCadastro.getCor() == "") {
+				return false;
+			}else if(veiculoCadastro.getAnoDeFabricacao() > 2019) {
+				return false;
+			}else if(veiculoCadastro.getAnoDoModelo() > 2019) {
+				return false;
+			}else if(Integer.parseInt(capacidade) < 1) {
+				return false;
+			}else if(Integer.parseInt(combustivelAtual) < 0){
+				return false;
+			}else if(veiculoCadastro.getMotorizacao() == "") {
+				return false;
+			}else if(veiculoCadastro.getRenavam().length() < 11 || veiculoCadastro.getRenavam().length() > 11) {
+				return false;
+			}else if(veiculoCadastro.getPlaca() == "") {
+				return false;
+			}else if(veiculoCadastro.getTipoDeCombutivel() == "") {
+				return false;
+			}
+		}catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao validar cadastro", JOptionPane.ERROR_MESSAGE);
+		}
+		return true;
+	}
+	
+	public static boolean ValidarCadastroAbastecimento(Veiculo veiculo, String tipoCombustivel, double quantidadeAbastecida) {
 		if(veiculo.getAnoDeFabricacao() > 2019) {
 			return false;
 		}else if(veiculo.getAnoDoModelo() > 2019) {
 			return false;
-		}else if(veiculo.getCapacidade() < 1) {
+		}else if(Integer.parseInt(veiculo.getCapacidade()) < 1) {
 			return false;
-		}else if(veiculo.getCombustivelAtual() > veiculo.getCapacidade()) {
+		}else if(Double.parseDouble(veiculo.getCapacidade()) < quantidadeAbastecida) {
 			return false;
 		}else if(veiculo.getCor() == "") {
 			return false;
