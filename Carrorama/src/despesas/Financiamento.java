@@ -6,7 +6,7 @@ public class Financiamento extends Despesas{
 	private double valorParcela;
 	
 	public Financiamento(String nome, String data, double valorParcela, int qtdParcelas) {
-		super(nome, data, 0, 3);
+		super(nome, data, 0);
 		this.valorParcela = valorParcela;
 		this.qtdParcelas = qtdParcelas;
 		double valor = qtdParcelas * valorParcela;

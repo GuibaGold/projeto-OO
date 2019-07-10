@@ -10,7 +10,7 @@ public class Abastecimento extends Despesas {
 
 	public Abastecimento(String data, String nome, String tpDeCombustivel, int quilometragem, double valorDoLitro, double valor,boolean tanqueCheio) {
 
-		super(nome, data, valor, 1);
+		super(nome, data, valor);
 		this.tpDeCombustivel = tpDeCombustivel;
 		this.quilometragem = quilometragem;
 		this.valorDoLitro = valorDoLitro;
@@ -32,5 +32,12 @@ public class Abastecimento extends Despesas {
 	public boolean isTanqueCheio() {
 		return tanqueCheio;
 	}
+
+	@Override
+	public String toString() {
+		return "Abastecimento ["+ super.toString() +" tpDeCombustivel=" + tpDeCombustivel + ", quilometragem=" + quilometragem
+				+ ", valorDoLitro=" + valorDoLitro + ", tanqueCheio=" + tanqueCheio + "]";
+	}
+
 
 }

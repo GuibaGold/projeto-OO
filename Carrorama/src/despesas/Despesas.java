@@ -6,7 +6,7 @@ public abstract class Despesas {
 	private String data;
 	private double valor; 
 	
-	public Despesas(String nome, String data, double valor, int tipoDespesa) {
+	public Despesas(String nome, String data, double valor) {
 		this.nome = nome;
 		this.data = data;
 		this.valor = valor;
@@ -31,7 +31,9 @@ public abstract class Despesas {
 	public double getValor() {
 		return valor;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "nome=" + nome + ", data=" + data + ", valor=" + valor;
+	}
 }

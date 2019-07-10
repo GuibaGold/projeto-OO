@@ -8,7 +8,7 @@ public class Imposto extends Despesas {
 	
 	public Imposto(String nome, String data, double valorParcela, int qtdParcelas, String tipoImposto) {
 		
-		super(nome, data, 0, 3);
+		super(nome, data, 0);
 		this.valorParcela = valorParcela;
 		this.qtdParcelas = qtdParcelas;
 		this.tipoImposto = tipoImposto;
@@ -31,4 +31,11 @@ public class Imposto extends Despesas {
 	public double getValorParcela() {
 		return valorParcela;
 	}
+
+	@Override
+	public String toString() {
+		return "Imposto ["+ super.toString() + " tipoImposto=" + tipoImposto + ", qtdParcelas=" + qtdParcelas + ", valorParcela=" + valorParcela
+				+ "]";
+	}
+	
 }

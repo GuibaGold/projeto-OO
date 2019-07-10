@@ -79,8 +79,7 @@ public class InterfacePrincipal extends JFrame {
 		JButton btnRelatrio = new JButton("Relatório");
 		btnRelatrio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				RelatorioSimples relatorio = new RelatorioSimples(veiculos);
-				JOptionPane.showMessageDialog(contentPane, relatorio.getNomesServicos());
+				RelatorioSimples.relSimples(veiculos);
 			}
 		});
 		btnRelatrio.setBounds(54, 104, 95, 25);

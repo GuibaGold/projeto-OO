@@ -9,7 +9,7 @@ public class Seguro extends Despesas {
 		
 	}
 	public Seguro(String nome, String data, double valor, String nomeSeguradora, String numeroApolice) {
-		super(nome, data, valor, 3);
+		super(nome, data, valor);
 		this.nomeSeguradora = nomeSeguradora;
 		this.numeroApolice = numeroApolice;
 	}
