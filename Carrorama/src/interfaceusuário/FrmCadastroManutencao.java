@@ -36,6 +36,7 @@ public class FrmCadastroManutencao extends JFrame {
 	private JTextField txtValor;
 	private boolean veiculoCadastrado = false;
 	private JTextField txtData;
+	private JTextField txtNomeManutencao;
 
 	/**
 	 * Create the frame.
@@ -47,7 +48,7 @@ public class FrmCadastroManutencao extends JFrame {
 		
 		
 		setBackground(new Color(119, 136, 153));
-		setBounds(100, 100, 321, 226);
+		setBounds(100, 100, 321, 286);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,9 +59,18 @@ public class FrmCadastroManutencao extends JFrame {
 		contentPane.add(lblPlacaVeculo);
 		
 		JComboBox comboVeiculos = new JComboBox();
+		comboVeiculos.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				for(Veiculo veiculo : veiculos) {
+					if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase())) {
+						veiculoCadastrado = true;
+					}
+				}
+			}
+		});
 		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
 		for(Veiculo veiculo : veiculos) {
-
 			modelo.addElement(veiculo.getPlaca());
 		}
 		comboVeiculos.setModel(modelo);
@@ -72,25 +82,25 @@ public class FrmCadastroManutencao extends JFrame {
 		contentPane.add(lblQuilometragemAtual);
 		
 		txtQuilometragem = new JTextField();
-		txtQuilometragem.setBounds(190, 36, 93, 19);
+		txtQuilometragem.setBounds(190, 37, 93, 19);
 		contentPane.add(txtQuilometragem);
 		txtQuilometragem.setColumns(10);
 		
 		JLabel lblQuilometragemPrxima = new JLabel("Quilometragem Próxima:");
-		lblQuilometragemPrxima.setBounds(17, 63, 196, 15);
+		lblQuilometragemPrxima.setBounds(12, 66, 196, 15);
 		contentPane.add(lblQuilometragemPrxima);
 		
 		txtValidade = new JTextField();
 		txtValidade.setColumns(10);
-		txtValidade.setBounds(194, 58, 93, 19);
+		txtValidade.setBounds(190, 67, 93, 19);
 		contentPane.add(txtValidade);
 		
 		JLabel lblValor = new JLabel("Valor: ");
-		lblValor.setBounds(14, 104, 66, 15);
+		lblValor.setBounds(12, 95, 66, 15);
 		contentPane.add(lblValor);
 		
 		txtValor = new JTextField();
-		txtValor.setBounds(164, 103, 124, 19);
+		txtValor.setBounds(174, 93, 124, 19);
 		contentPane.add(txtValor);
 		txtValor.setColumns(10);
 		
@@ -99,11 +109,10 @@ public class FrmCadastroManutencao extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(veiculoCadastrado) {
-						Manutencao manutencaoCadastro = new Manutencao("Manutencao", txtData.toString(), Double.parseDouble(txtValor.toString()), Double.parseDouble(txtQuilometragem.toString()), Double.parseDouble(txtValidade.toString()));
+						Manutencao manutencaoCadastro = new Manutencao("Manutencao - " + txtNomeManutencao.getText(), txtData.toString(), Double.parseDouble(txtValor.toString()), Double.parseDouble(txtQuilometragem.toString()), Double.parseDouble(txtValidade.toString()));
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
-								int indiceVeiculo = veiculos.indexOf(veiculo);
-								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
+							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()) &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
+								Veiculo novoVeiculo = veiculo;
 								novoVeiculo.despesasVeiculo.add(manutencaoCadastro);
 								veiculos.remove(veiculo);
 								veiculos.add(novoVeiculo);
@@ -117,25 +126,34 @@ public class FrmCadastroManutencao extends JFrame {
 						JOptionPane.showConfirmDialog(contentPane, "Manutenção Cadastrada com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
 					}else {
 						Exception e = new Exception();
-						throw new excecoes.DescriçãoEmBrancoException("Veículo não cadastrado!!", e);
+						throw new excecoes.DescriçãoEmBrancoException("Veículo não cadastrado ou Algum campo está vazio!", e);
 					}
 				}catch (Exception e) {
-					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Manutenção", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Manutenção -" , JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
 		});
-		btnSalvar.setBounds(180, 153, 114, 25);
+		btnSalvar.setBounds(184, 198, 114, 25);
 		contentPane.add(btnSalvar);
 		
 		JLabel lblNewLabel = new JLabel("Data:");
-		lblNewLabel.setBounds(14, 121, 66, 15);
+		lblNewLabel.setBounds(12, 121, 66, 15);
 		contentPane.add(lblNewLabel);
 		
 		txtData = new JTextField();
-		txtData.setBounds(174, 124, 124, 19);
+		txtData.setBounds(174, 119, 124, 19);
 		contentPane.add(txtData);
 		txtData.setColumns(10);
+		
+		JLabel lblNomeManuteno = new JLabel("Nome Manutenção:");
+		lblNomeManuteno.setBounds(12, 149, 142, 15);
+		contentPane.add(lblNomeManuteno);
+		
+		txtNomeManutencao = new JTextField();
+		txtNomeManutencao.setBounds(179, 145, 124, 19);
+		contentPane.add(txtNomeManutencao);
+		txtNomeManutencao.setColumns(10);
 	}
 
 }

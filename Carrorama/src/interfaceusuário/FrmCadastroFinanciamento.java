@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import despesas.Abastecimento;
 import despesas.Financiamento;
 import despesas.Seguro;
 import proprietario.Veiculo;
@@ -52,50 +53,62 @@ public class FrmCadastroFinanciamento extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblParcelas = new JLabel("Parcelas:");
-		lblParcelas.setBounds(14, 26, 66, 15);
+		lblParcelas.setBounds(16, 69, 66, 15);
 		contentPane.add(lblParcelas);
 		
 		JLabel lblValorParcela = new JLabel("Valor Parcela:");
-		lblValorParcela.setBounds(14, 54, 115, 15);
+		lblValorParcela.setBounds(16, 97, 115, 15);
 		contentPane.add(lblValorParcela);
 		
 		JComboBox comboParcelas = new JComboBox();
 		comboParcelas.setModel(new DefaultComboBoxModel(new String[] {"12", "24", "48"}));
 		comboParcelas.setMaximumRowCount(3);
-		comboParcelas.setBounds(117, 18, 91, 24);
+		comboParcelas.setBounds(119, 61, 91, 24);
 		contentPane.add(comboParcelas);
 		
 		txtValorParcela = new JTextField();
 		txtValorParcela.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				double valorParcela = Double.parseDouble(txtValorParcela.toString());
-				int qtdeParcelas = Integer.parseInt(comboParcelas.getSelectedItem().toString());
+				double valorParcela = util.getDoubleValue(txtValorParcela.getText());
+				int qtdeParcelas = util.getIntegerValue(comboParcelas.getSelectedItem().toString());
 				txtTotal.setText(String.valueOf(valorParcela * qtdeParcelas));
 			}
+
+			
 		});
-		txtValorParcela.setBounds(117, 52, 91, 19);
+		txtValorParcela.setBounds(119, 95, 91, 19);
 		contentPane.add(txtValorParcela);
 		txtValorParcela.setColumns(10);
 		
 		JLabel lblTotal = new JLabel("Total:");
-		lblTotal.setBounds(14, 119, 66, 15);
+		lblTotal.setBounds(16, 162, 66, 15);
 		contentPane.add(lblTotal);
 		
 		txtTotal = new JTextField();
 		txtTotal.setEditable(false);
-		txtTotal.setBounds(114, 117, 104, 19);
+		txtTotal.setBounds(116, 160, 104, 19);
 		contentPane.add(txtTotal);
 		txtTotal.setColumns(10);
 		
 		JComboBox comboVeiculos = new JComboBox();
+		comboVeiculos.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				for(Veiculo veiculo : veiculos) {
+					if(veiculo.getPlaca().contentEquals(comboVeiculos.getSelectedItem().toString().toUpperCase())) {
+						veiculoCadastrado = true;
+					}
+				}
+			}
+		});
 		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
 		for(Veiculo veiculo : veiculos) {
 
 			modelo.addElement(veiculo.getPlaca());
 		}
 		comboVeiculos.setModel(modelo);
-		comboVeiculos.setBounds(117, 141, 91, 24);
+		comboVeiculos.setBounds(119, 26, 91, 24);
 		contentPane.add(comboVeiculos);
 		
 		JButton btnSalvar = new JButton("Salvar");
@@ -103,29 +116,28 @@ public class FrmCadastroFinanciamento extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(veiculoCadastrado) {
-						Financiamento seguroCadastro = new Financiamento("Financiamento", txtData.toString(), Double.parseDouble(txtValorParcela.toString()), Integer.parseInt(comboParcelas.getSelectedItem().toString()));
+						Financiamento financiamentoCadastro = new Financiamento("Financiamento", txtData.getText(), Double.parseDouble(txtValorParcela.getText()), Integer.parseInt(comboParcelas.getSelectedItem().toString()));
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() && util.ValidarCamposCadastroVeiculo(veiculo)) {
-								int indiceVeiculo = veiculos.indexOf(veiculo);
-								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
-								novoVeiculo.despesasVeiculo.add(seguroCadastro);
+							String placaCadastro = comboVeiculos.getSelectedItem().toString().toUpperCase();
+							String placaVeiculo = veiculo.getPlaca();
+							if(placaVeiculo.equals(placaCadastro) && util.ValidarCamposCadastroVeiculo(veiculo)) {
+								Veiculo novoVeiculo = veiculo;
+								veiculo.despesasVeiculo.add(financiamentoCadastro);
 								veiculos.remove(veiculo);
 								veiculos.add(novoVeiculo);
-								
 							}else {
 								Exception e = new Exception();
 								throw new excecoes.CombustivelIncompativelException("Veículo Inválido", e);
 							}
 							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Financiamento Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
-					}
-					else {
-						Exception ex = new Exception();
-						throw new excecoes.DescriçãoEmBrancoException("Veículo não Cadastrado!", ex);
+						JOptionPane.showConfirmDialog(contentPane, "Financiamento Cadastrado com Sucesso!", "Cadastro Financiamento", JOptionPane.OK_OPTION);
+					}else {
+						Exception e = new Exception();
+						throw new excecoes.ValorInvalidoException("Veículo não Cadastrado",e);
 					}
 				}catch (Exception e) {
-					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Financiamento", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Abastecimento", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -133,16 +145,16 @@ public class FrmCadastroFinanciamento extends JFrame {
 		contentPane.add(btnSalvar);
 		
 		JLabel lblData = new JLabel("Data:");
-		lblData.setBounds(12, 88, 66, 15);
+		lblData.setBounds(14, 131, 66, 15);
 		contentPane.add(lblData);
 		
 		txtData = new JTextField();
-		txtData.setBounds(117, 86, 91, 19);
+		txtData.setBounds(119, 129, 91, 19);
 		contentPane.add(txtData);
 		txtData.setColumns(10);
 		
 		JLabel lblPlacaVeculo = new JLabel("Placa Veículo:");
-		lblPlacaVeculo.setBounds(14, 146, 109, 15);
+		lblPlacaVeculo.setBounds(16, 31, 109, 15);
 		contentPane.add(lblPlacaVeculo);
 		
 		
