@@ -124,7 +124,7 @@ public class FrmCadastroSeguro extends JFrame {
 							}
 							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Seguro Cadastrado com Sucesso!", "Cadastro Seguro", JOptionPane.OK_OPTION);
+						JOptionPane.showConfirmDialog(contentPane, "Seguro Cadastrado com Sucesso!", "Cadastro Seguro", JOptionPane.PLAIN_MESSAGE);
 					}
 					else {
 						Exception ex = new Exception();

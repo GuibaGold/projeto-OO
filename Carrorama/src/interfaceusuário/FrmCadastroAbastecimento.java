@@ -38,6 +38,7 @@ public class FrmCadastroAbastecimento extends JFrame {
 	private JTextField txtValorLitro;
 	private boolean veiculoCadastrado;
 	private JTextField txtValorTotal;
+	private JTextField txtQuantidadeCombustivel;
 	
 
 	/**
@@ -48,7 +49,7 @@ public class FrmCadastroAbastecimento extends JFrame {
 		
 		setTitle("Abastecimento");
 		setBackground(new Color(119, 136, 153));
-		setBounds(100, 100, 382, 300);
+		setBounds(100, 100, 386, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -118,7 +119,7 @@ public class FrmCadastroAbastecimento extends JFrame {
 		txtValorLitro.setColumns(10);
 		
 		JCheckBox chckbxTanqueCheio = new JCheckBox("Tanque Cheio");
-		chckbxTanqueCheio.setBounds(22, 143, 126, 23);
+		chckbxTanqueCheio.setBounds(22, 162, 126, 23);
 		contentPane.add(chckbxTanqueCheio);
 		
 		JButton btnSalvar = new JButton("Salvar");
@@ -134,21 +135,26 @@ public class FrmCadastroAbastecimento extends JFrame {
 							String tipoCombustivelCadastro =  comboTipoCombustivel.getSelectedItem().toString().toUpperCase();
 							String placaVeiculo = veiculo.getPlaca();
 							String tipoCombustivelVeiculo = veiculo.getTipoDeCombutivel();
-							if(placaVeiculo.equals(placaCadastro) && tipoCombustivelVeiculo.equals(tipoCombustivelCadastro)) {
-								boolean validacao =  util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString().toUpperCase(), quantidadeAbastecida);
-								int indiceVeiculo = veiculos.indexOf(veiculo);
+							if(util.getDoubleValue(txtQuantidadeCombustivel.getText()) <= util.getDoubleValue(veiculo.getCapacidade()) 
+									&& placaVeiculo.equals(placaCadastro) && tipoCombustivelVeiculo.equals(tipoCombustivelCadastro) && util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString().toUpperCase(), quantidadeAbastecida)) {
 								Veiculo novoVeiculo = veiculo;
 								veiculo.despesasVeiculo.add(abastecimentoCadastro);
 								veiculos.remove(veiculo);
 								veiculos.add(novoVeiculo);
-								
 							}else {
 								Exception e = new Exception();
-								throw new excecoes.CombustivelIncompativelException("Veículo Inválido", e);
+								if(util.getDoubleValue(txtQuantidadeCombustivel.getText()) > util.getDoubleValue(veiculo.getCapacidade())) {
+									throw new excecoes.CombustivelIncompativelException("Verifique se a quantidade informada não ultrapassa a capacidade do veículo", e);
+								}else if(!placaVeiculo.equals(placaCadastro)) {
+									throw new excecoes.ValorInvalidoException("Verifique a placa informada", e);
+								}else if(!tipoCombustivelVeiculo.equals(tipoCombustivelCadastro)) {
+									throw new excecoes.CombustivelIncompativelException("Verifique o tipo de Combustível informado", e);
+								}else if(!util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString(), quantidadeAbastecida)) {
+									throw new excecoes.ValorInvalidoException("Cadastro inválido", e);
+								}
 							}
-							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Abastecimento Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
+						JOptionPane.showConfirmDialog(contentPane, "Abastecimento Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.PLAIN_MESSAGE);
 					}else {
 						Exception e = new Exception();
 						throw new excecoes.ValorInvalidoException("Veículo não Cadastrado",e);
@@ -162,13 +168,31 @@ public class FrmCadastroAbastecimento extends JFrame {
 		contentPane.add(btnSalvar);
 		
 		JLabel lblTotal = new JLabel("Total");
-		lblTotal.setBounds(22, 173, 66, 15);
+		lblTotal.setBounds(22, 193, 66, 15);
 		contentPane.add(lblTotal);
 		
 		txtValorTotal = new JTextField();
-		txtValorTotal.setBounds(297, 171, 54, 19);
+		txtValorTotal.setEditable(false);
+		txtValorTotal.setBounds(297, 191, 54, 19);
 		contentPane.add(txtValorTotal);
 		txtValorTotal.setColumns(10);
+		
+		JLabel lblQuantidadelitros = new JLabel("Quantidade (Litros):");
+		lblQuantidadelitros.setBounds(25, 142, 167, 15);
+		contentPane.add(lblQuantidadelitros);
+		
+		txtQuantidadeCombustivel = new JTextField();
+		txtQuantidadeCombustivel.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				double qtdeCombustivel = util.getDoubleValue(txtQuantidadeCombustivel.getText());
+				double valorCombustivel = util.getDoubleValue(txtValorLitro.getText());
+				txtValorTotal.setText(String.valueOf(valorCombustivel * qtdeCombustivel));
+			}
+		});
+		txtQuantidadeCombustivel.setBounds(233, 141, 124, 19);
+		contentPane.add(txtQuantidadeCombustivel);
+		txtQuantidadeCombustivel.setColumns(10);
 		
 		
 	}

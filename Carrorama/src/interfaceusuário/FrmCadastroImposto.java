@@ -135,7 +135,7 @@ public class FrmCadastroImposto extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(veiculoCadastrado) {
-						Imposto impostoCadastro = new Imposto("Imposto", txtDataPagamento.toString(), Double.parseDouble(txtValorParcela.toString()), 
+						Imposto impostoCadastro = new Imposto("Imposto", txtDataPagamento.getText(), Double.parseDouble(txtValorParcela.getText()), 
 								Integer.parseInt(comboQtdeParcelas.getSelectedItem().toString()), comboTpImposto.getSelectedItem().toString());
 						for(Veiculo veiculo : veiculos) {
 							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()) && util.ValidarCamposCadastroVeiculo(veiculo)) {
@@ -149,7 +149,7 @@ public class FrmCadastroImposto extends JFrame {
 							}
 							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Imposto Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
+						JOptionPane.showConfirmDialog(contentPane, "Imposto Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.PLAIN_MESSAGE);
 					}else {
 						Exception e = new Exception();
 						throw new excecoes.DescriçãoEmBrancoException("Veículo não cadastrado!!", e);
