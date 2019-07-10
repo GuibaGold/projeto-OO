@@ -8,9 +8,6 @@ import proprietario.Veiculo;
 
 public class util {
 	
-	
-	
-	
 	public static boolean ValidarCamposCadastroVeiculo(Veiculo veiculoCadastro) {
 		try {
 			String capacidade = veiculoCadastro.getCapacidade();

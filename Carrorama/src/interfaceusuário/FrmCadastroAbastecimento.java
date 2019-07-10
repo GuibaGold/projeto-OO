@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import despesas.Abastecimento;
+import despesas.Despesas;
 import proprietario.Veiculo;
 import util.util;
 
@@ -138,6 +139,15 @@ public class FrmCadastroAbastecimento extends JFrame {
 							if(util.getDoubleValue(txtQuantidadeCombustivel.getText()) <= util.getDoubleValue(veiculo.getCapacidade()) 
 									&& placaVeiculo.equals(placaCadastro) && tipoCombustivelVeiculo.equals(tipoCombustivelCadastro) && util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString().toUpperCase(), quantidadeAbastecida)) {
 								Veiculo novoVeiculo = veiculo;
+								for(Despesas despesa :  veiculo.despesasVeiculo) {
+									if(despesa instanceof Abastecimento) {
+										double quilometragemAbastecimentoAnterior = ((Abastecimento) despesa).getquilometragem();
+										if(quilometragemAbastecimentoAnterior < util.getDoubleValue(txtQuilometragem.getText())){
+											Exception e = new Exception();
+											throw new excecoes.ValorInvalidoException("Quilometragem do abastecimento atual é menor que a anterior!", e);
+										}
+									}
+								}
 								veiculo.despesasVeiculo.add(abastecimentoCadastro);
 								veiculos.remove(veiculo);
 								veiculos.add(novoVeiculo);

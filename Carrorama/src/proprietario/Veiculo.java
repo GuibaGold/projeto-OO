@@ -21,7 +21,7 @@ public class Veiculo {
 	private String tipoDeCombustivel;
 	private String combustivelAtual;
 	private String motorizacao;
-	public ArrayList <Despesas> despesasVeiculo = new ArrayList<Despesas>();
+	public ArrayList<Despesas> despesasVeiculo = new ArrayList<Despesas>();
 	
 	
 	public Veiculo() {
