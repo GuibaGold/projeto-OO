@@ -21,7 +21,7 @@ public class Manutencao extends Despesas {
 
 	@Override
 	public String toString() {
-		return "Manutencao ["+ super.toString() + " quilometragem=" + quilometragem + ", validade=" + validade + "]";
+		return "Manutencao ["+ super.toString() + " quilometragem = " + quilometragem + ", validade = " + validade + "]";
 	}
 	
 }
