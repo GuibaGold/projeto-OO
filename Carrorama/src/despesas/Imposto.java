@@ -2,11 +2,11 @@ package despesas;
 
 public class Imposto extends Despesas {
 	
-	private int tipoImposto; // 1 - DPVAT, 2 - IPVA, 3 - Licenciamento 
+	private String tipoImposto; // 1 - DPVAT, 2 - IPVA, 3 - Licenciamento 
 	private int qtdParcelas;
 	private double valorParcela;
 	
-	public Imposto(String nome, String data, double valorParcela, int qtdParcelas, int tipoImposto) {
+	public Imposto(String nome, String data, double valorParcela, int qtdParcelas, String tipoImposto) {
 		
 		super(nome, data, 0, 3);
 		this.valorParcela = valorParcela;
@@ -15,8 +15,12 @@ public class Imposto extends Despesas {
 		double valor = qtdParcelas * valorParcela;
 		this.setValor(valor); // valor total do imposto		
 	}
+	
+	public Imposto() {
+		
+	}
 
-	public int getTipoImposto() {
+	public String getTipoImposto() {
 		return tipoImposto;
 	}
 

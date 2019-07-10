@@ -51,7 +51,7 @@ public class FrmCadastroAbastecimento extends JFrame {
 		veiculos = frameVeiculo.getListVeiculos();
 		frameVeiculo.dispose();
 		
-		setTitle("Cadastro Abastecimento");
+		setTitle("Abastecimento");
 		setBackground(new Color(119, 136, 153));
 		setBounds(100, 100, 382, 300);
 		contentPane = new JPanel();
@@ -128,18 +128,20 @@ public class FrmCadastroAbastecimento extends JFrame {
 						Abastecimento abastecimentoCadastro = new Abastecimento(txtDataAbastecimento.toString(), "Abastecimento - " + txtPlacaVeiculo.toString(), 
 								Integer.parseInt(comboTipoCombustivel.getSelectedItem().toString()), Integer.parseInt(txtQuilometragem.toString()), Double.parseDouble(txtValorLitro.toString()), Double.parseDouble(txtValorTotal.toString()), chckbxTanqueCheio.isSelected());
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == txtPlacaVeiculo.toString() && veiculo.getTipoDeCombutivel() == comboTipoCombustivel.getSelectedItem().toString()&& util.ValidarCadastroAbastecimento(veiculo)) {
+							if(veiculo.getPlaca() == txtPlacaVeiculo.toString() && veiculo.getTipoDeCombutivel() == comboTipoCombustivel.getSelectedItem().toString()&& util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString())) {
 								int indiceVeiculo = veiculos.indexOf(veiculo);
 								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
 								novoVeiculo.despesasVeiculo.add(abastecimentoCadastro);
 								veiculos.remove(veiculo);
 								veiculos.add(novoVeiculo);
-								JOptionPane.showConfirmDialog(contentPane, "Abastecimento Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
+								
 							}else {
 								Exception e = new Exception();
 								throw new excecoes.CombustivelIncompativelException("Veículo Inválido", e);
 							}
+							
 						}
+						JOptionPane.showConfirmDialog(contentPane, "Abastecimento Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
 					}else {
 						Exception e = new Exception();
 						throw new excecoes.ValorInvalidoException("Veículo não Cadastrado",e);

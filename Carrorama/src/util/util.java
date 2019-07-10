@@ -6,6 +6,8 @@ import proprietario.Veiculo;
 
 public class util {
 	
+	
+	
 	public static boolean ValidarCamposCadastroVeiculo(Veiculo veiculoCadastro) {
 		if(veiculoCadastro.getMarca() == "") {
 			return false;
@@ -35,7 +37,7 @@ public class util {
 		}
 	}
 	
-	public static boolean ValidarCadastroAbastecimento(Veiculo veiculo) {
+	public static boolean ValidarCadastroAbastecimento(Veiculo veiculo, String tipoCombustivel) {
 		if(veiculo.getAnoDeFabricacao() > 2019) {
 			return false;
 		}else if(veiculo.getAnoDoModelo() > 2019) {
@@ -56,7 +58,7 @@ public class util {
 			return false;
 		}else if(veiculo.getRenavam() == "") {
 			return false;
-		}else if(veiculo.getTipoDeCombutivel() == "") {
+		}else if(veiculo.getTipoDeCombutivel() != tipoCombustivel) {
 			return false;
 		}
 		
