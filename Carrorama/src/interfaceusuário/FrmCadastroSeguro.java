@@ -57,6 +57,16 @@ public class FrmCadastroSeguro extends JFrame {
 		contentPane.add(lblPlacaVeculo);
 		
 		JComboBox comboVeiculos = new JComboBox();
+		comboVeiculos.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				for(Veiculo veiculo : veiculos) {
+					if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase())) {
+						veiculoCadastrado = true;
+					}
+				}
+			}
+		});
 		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
 		for(Veiculo veiculo : veiculos) {
 
@@ -101,9 +111,9 @@ public class FrmCadastroSeguro extends JFrame {
 						Seguro seguroCadastro = new Seguro("Seguro", txtData.toString(), Double.parseDouble(txtValor.toString()), 
 								txtSeguradora.toString(), txtNumeroApolice.toString());
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() && util.ValidarCamposCadastroVeiculo(veiculo)) {
-								int indiceVeiculo = veiculos.indexOf(veiculo);
-								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
+							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()) && util.ValidarCamposCadastroVeiculo(veiculo)) {
+								
+								Veiculo novoVeiculo = veiculo;
 								novoVeiculo.despesasVeiculo.add(seguroCadastro);
 								veiculos.remove(veiculo);
 								veiculos.add(novoVeiculo);
@@ -114,7 +124,7 @@ public class FrmCadastroSeguro extends JFrame {
 							}
 							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Seguro Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
+						JOptionPane.showConfirmDialog(contentPane, "Seguro Cadastrado com Sucesso!", "Cadastro Seguro", JOptionPane.OK_OPTION);
 					}
 					else {
 						Exception ex = new Exception();

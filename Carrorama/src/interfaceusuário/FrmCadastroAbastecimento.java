@@ -130,10 +130,15 @@ public class FrmCadastroAbastecimento extends JFrame {
 								comboTipoCombustivel.getSelectedItem().toString(), Integer.parseInt(txtQuilometragem.getText()), Double.parseDouble(txtValorLitro.getText()), Double.parseDouble(txtValorTotal.getText()), chckbxTanqueCheio.isSelected());
 						double quantidadeAbastecida = Double.parseDouble(txtValorTotal.getText()) / Double.parseDouble(txtValorLitro.getText());
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() && veiculo.getTipoDeCombutivel() == comboTipoCombustivel.getSelectedItem().toString()&& util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString(), quantidadeAbastecida)) {
+							String placaCadastro = comboVeiculos.getSelectedItem().toString().toUpperCase();
+							String tipoCombustivelCadastro =  comboTipoCombustivel.getSelectedItem().toString().toUpperCase();
+							String placaVeiculo = veiculo.getPlaca();
+							String tipoCombustivelVeiculo = veiculo.getTipoDeCombutivel();
+							if(placaVeiculo.equals(placaCadastro) && tipoCombustivelVeiculo.equals(tipoCombustivelCadastro)) {
+								boolean validacao =  util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString().toUpperCase(), quantidadeAbastecida);
 								int indiceVeiculo = veiculos.indexOf(veiculo);
-								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
-								novoVeiculo.despesasVeiculo.add(abastecimentoCadastro);
+								Veiculo novoVeiculo = veiculo;
+								veiculo.despesasVeiculo.add(abastecimentoCadastro);
 								veiculos.remove(veiculo);
 								veiculos.add(novoVeiculo);
 								

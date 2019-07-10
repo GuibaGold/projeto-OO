@@ -150,7 +150,7 @@ public class FrmCadastroVeiculo extends JFrame {
 				try {
 					Veiculo novoVeiculo = new Veiculo(txtModelo.getText(), txtCor.getText(), txtMarca.getText(),
 							comboAnoFabricacao.getSelectedItem().toString(), comboAnoModelo.getSelectedItem().toString(), txtPlaca.getText(), 
-							txtCapacidadeTanque.getText(), txtRenavam.getText(), comboTipoCombustivel.getSelectedItem().toString(), qtdeCombustivel.getText(),
+							txtCapacidadeTanque.getText(), txtRenavam.getText(), comboTipoCombustivel.getSelectedItem().toString().toUpperCase(), qtdeCombustivel.getText(),
 							txtMotor.getText());
 					
 					if(util.ValidarCamposCadastroVeiculo(novoVeiculo)) {

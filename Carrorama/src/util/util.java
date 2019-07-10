@@ -9,12 +9,7 @@ import proprietario.Veiculo;
 public class util {
 	
 	
-	public int getIntegerValue(String s) {
-	    if ( "".equals(s) ) {
-	        return 0;
-	    }
-	    return Integer.parseInt(s);
-	}
+	
 	
 	public static boolean ValidarCamposCadastroVeiculo(Veiculo veiculoCadastro) {
 		try {
@@ -49,6 +44,21 @@ public class util {
 		return true;
 	}
 	
+	public static double getDoubleValue(String string) {
+			if ( "".equals(string) ) {
+				return 0;
+	    }
+	    return Double.parseDouble(string);
+			
+	}
+	
+	public static int getIntegerValue(String string) {
+		 if ( "".equals(string) ) {
+		        return 0;
+		    }
+		    return Integer.parseInt(string);
+	}
+		
 	public static boolean ValidarCadastroAbastecimento(Veiculo veiculo, String tipoCombustivel, double quantidadeAbastecida) {
 		if(veiculo.getAnoDeFabricacao() > 2019) {
 			return false;
@@ -70,7 +80,7 @@ public class util {
 			return false;
 		}else if(veiculo.getRenavam() == "") {
 			return false;
-		}else if(veiculo.getTipoDeCombutivel() != tipoCombustivel) {
+		}else if(!veiculo.getTipoDeCombutivel().equals(tipoCombustivel)) {
 			return false;
 		}
 		

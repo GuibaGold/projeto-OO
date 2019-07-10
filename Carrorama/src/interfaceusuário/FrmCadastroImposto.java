@@ -59,6 +59,16 @@ public class FrmCadastroImposto extends JFrame {
 		contentPane.add(comboTpImposto);
 		
 		JComboBox comboVeiculos = new JComboBox();
+		comboVeiculos.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				for(Veiculo veiculo : veiculos) {
+					if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase())) {
+						veiculoCadastrado = true;
+					}
+				}
+			}
+		});
 		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
 		for(Veiculo veiculo : veiculos) {
 
@@ -101,8 +111,8 @@ public class FrmCadastroImposto extends JFrame {
 		txtValorParcela.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				int qtdeParcelas = Integer.parseInt(comboQtdeParcelas.getSelectedItem().toString());
-				double valorParcela = Double.parseDouble(txtValorParcela.toString());
+				int qtdeParcelas = util.getIntegerValue(comboQtdeParcelas.getSelectedItem().toString());
+				double valorParcela = util.getDoubleValue(txtValorParcela.getText());
 				txtValorTotal.setText(String.valueOf(qtdeParcelas * valorParcela));
 			}
 		});
@@ -128,13 +138,11 @@ public class FrmCadastroImposto extends JFrame {
 						Imposto impostoCadastro = new Imposto("Imposto", txtDataPagamento.toString(), Double.parseDouble(txtValorParcela.toString()), 
 								Integer.parseInt(comboQtdeParcelas.getSelectedItem().toString()), comboTpImposto.getSelectedItem().toString());
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
-								int indiceVeiculo = veiculos.indexOf(veiculo);
-								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
+							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()) && util.ValidarCamposCadastroVeiculo(veiculo)) {
+								Veiculo novoVeiculo = veiculo;
 								novoVeiculo.despesasVeiculo.add(impostoCadastro);
 								veiculos.remove(veiculo);
 								veiculos.add(novoVeiculo);
-								
 							}else {
 								Exception e = new Exception();
 								throw new excecoes.CombustivelIncompativelException("Veículo Inválido", e);

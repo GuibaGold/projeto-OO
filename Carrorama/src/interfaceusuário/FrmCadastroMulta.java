@@ -72,6 +72,16 @@ public class FrmCadastroMulta extends JFrame {
 		txtValor.setColumns(10);
 		
 		JComboBox comboVeiculos = new JComboBox();
+		comboVeiculos.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				for(Veiculo veiculo : veiculos) {
+					if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase())) {
+						veiculoCadastrado = true;
+					}
+				}
+			}
+		});
 		DefaultComboBoxModel modelo = (DefaultComboBoxModel)comboVeiculos.getModel();
 		for(Veiculo veiculo : veiculos) {
 
@@ -88,9 +98,8 @@ public class FrmCadastroMulta extends JFrame {
 					if(veiculoCadastrado) {
 						Multa multaCadastro = new Multa("Multa", txtData.toString(), Double.parseDouble(txtValor.toString()));
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca() == comboVeiculos.getSelectedItem().toString() &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
-								int indiceVeiculo = veiculos.indexOf(veiculo);
-								Veiculo novoVeiculo = (Veiculo) veiculos.subList(indiceVeiculo, indiceVeiculo);
+							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase())&&  util.ValidarCamposCadastroVeiculo(veiculo)) {
+								Veiculo novoVeiculo = veiculo;
 								novoVeiculo.despesasVeiculo.add(multaCadastro);
 								veiculos.remove(veiculo);
 								veiculos.add(novoVeiculo);
