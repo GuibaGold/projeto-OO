@@ -148,7 +148,7 @@ public class FrmCadastroAbastecimento extends JFrame {
 							}
 							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Abastecimento Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
+						JOptionPane.showConfirmDialog(contentPane, "Abastecimento Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.PLAIN_MESSAGE);
 					}else {
 						Exception e = new Exception();
 						throw new excecoes.ValorInvalidoException("Veículo não Cadastrado",e);

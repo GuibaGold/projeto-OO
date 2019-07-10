@@ -131,7 +131,7 @@ public class FrmCadastroFinanciamento extends JFrame {
 							}
 							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Financiamento Cadastrado com Sucesso!", "Cadastro Financiamento", JOptionPane.OK_OPTION);
+						JOptionPane.showConfirmDialog(contentPane, "Financiamento Cadastrado com Sucesso!", "Cadastro Financiamento", JOptionPane.PLAIN_MESSAGE);
 					}else {
 						Exception e = new Exception();
 						throw new excecoes.ValorInvalidoException("Veículo não Cadastrado",e);

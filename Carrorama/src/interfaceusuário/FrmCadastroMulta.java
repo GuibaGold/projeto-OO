@@ -110,7 +110,7 @@ public class FrmCadastroMulta extends JFrame {
 							}
 							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Manutenção Cadastrada com Sucesso!", "Cadastro Abastecimento", JOptionPane.OK_OPTION);
+						JOptionPane.showConfirmDialog(contentPane, "Manutenção Cadastrada com Sucesso!", "Cadastro Abastecimento", JOptionPane.PLAIN_MESSAGE);
 					}else {
 						Exception e = new Exception();
 						throw new excecoes.DescriçãoEmBrancoException("Veículo não cadastrado!!", e);
