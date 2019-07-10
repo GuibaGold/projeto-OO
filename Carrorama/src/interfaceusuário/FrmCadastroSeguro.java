@@ -108,8 +108,8 @@ public class FrmCadastroSeguro extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(veiculoCadastrado) {
-						Seguro seguroCadastro = new Seguro("Seguro", txtData.toString(), Double.parseDouble(txtValor.toString()), 
-								txtSeguradora.toString(), txtNumeroApolice.toString());
+						Seguro seguroCadastro = new Seguro("Seguro", txtData.getText(), Double.parseDouble(txtValor.getText()), 
+								txtSeguradora.getText(), txtNumeroApolice.getText());
 						for(Veiculo veiculo : veiculos) {
 							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()) && util.ValidarCamposCadastroVeiculo(veiculo)) {
 								

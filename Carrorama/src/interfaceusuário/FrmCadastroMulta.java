@@ -96,7 +96,7 @@ public class FrmCadastroMulta extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(veiculoCadastrado) {
-						Multa multaCadastro = new Multa("Multa", txtData.toString(), Double.parseDouble(txtValor.toString()));
+						Multa multaCadastro = new Multa("Multa", txtData.getText(), Double.parseDouble(txtValor.getText()));
 						for(Veiculo veiculo : veiculos) {
 							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase())&&  util.ValidarCamposCadastroVeiculo(veiculo)) {
 								Veiculo novoVeiculo = veiculo;
