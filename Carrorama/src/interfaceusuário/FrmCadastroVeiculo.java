@@ -153,17 +153,11 @@ public class FrmCadastroVeiculo extends JFrame {
 							txtCapacidadeTanque.getText(), txtRenavam.getText(), comboTipoCombustivel.getSelectedItem().toString().toUpperCase(), qtdeCombustivel.getText(),
 							txtMotor.getText());
 					
-					if(util.ValidarCamposCadastroVeiculo(novoVeiculo)) {
-						veiculos.add(novoVeiculo);
-						JOptionPane.showMessageDialog(contentPane, "Cadastro Efetuado com sucesso", "Cadastro Veículo", JOptionPane.PLAIN_MESSAGE);
-					}
-					else {
-						throw new excecoes.DescriçãoEmBrancoException();
-					}
+						Veiculo.CadastrarVeiculo(novoVeiculo, veiculos);
+					
 				}catch (Exception e) {
-					JOptionPane.showMessageDialog(contentPane, "Erro ao cadastrar Veículo" );
+					JOptionPane.showMessageDialog(contentPane, "Erro ao cadastrar Veículo: " + e.getMessage() );
 				}
-			
 			}
 		});
 		btnSalvar.setBounds(261, 335, 114, 25);
@@ -177,9 +171,6 @@ public class FrmCadastroVeiculo extends JFrame {
 		txtCor.setBounds(77, 291, 124, 19);
 		contentPane.add(txtCor);
 		txtCor.setColumns(10);
-		
-		
-		
 	}
 	
 }

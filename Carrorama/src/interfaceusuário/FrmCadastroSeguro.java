@@ -111,24 +111,18 @@ public class FrmCadastroSeguro extends JFrame {
 						Seguro seguroCadastro = new Seguro("Seguro", txtData.getText(), Double.parseDouble(txtValor.getText()), 
 								txtSeguradora.getText(), txtNumeroApolice.getText());
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()) && util.ValidarCamposCadastroVeiculo(veiculo)) {
-								
-								Veiculo novoVeiculo = veiculo;
-								novoVeiculo.despesasVeiculo.add(seguroCadastro);
-								veiculos.remove(veiculo);
-								veiculos.add(novoVeiculo);
-								
+							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase())) {
+								Seguro.CadastrarSeguro(seguroCadastro, veiculo);
 							}else {
-								Exception e = new Exception();
-								throw new excecoes.CombustivelIncompativelException("Veículo Inválido", e);
+								throw new excecoes.CombustivelIncompativelException("Veículo Inválido");
 							}
 							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Seguro Cadastrado com Sucesso!", "Cadastro Seguro", JOptionPane.PLAIN_MESSAGE);
+						
 					}
 					else {
 						Exception ex = new Exception();
-						throw new excecoes.DescriçãoEmBrancoException("Veículo não Cadastrado!", ex);
+						throw new excecoes.DescriçãoEmBrancoException("Veículo não Cadastrado!");
 					}
 				}catch (Exception e) {
 					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Seguro", JOptionPane.ERROR_MESSAGE);

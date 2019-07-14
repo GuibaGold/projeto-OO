@@ -98,25 +98,20 @@ public class FrmCadastroMulta extends JFrame {
 					if(veiculoCadastrado) {
 						Multa multaCadastro = new Multa("Multa", txtData.getText(), Double.parseDouble(txtValor.getText()));
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase())&&  util.ValidarCamposCadastroVeiculo(veiculo)) {
-								Veiculo novoVeiculo = veiculo;
-								novoVeiculo.despesasVeiculo.add(multaCadastro);
-								veiculos.remove(veiculo);
-								veiculos.add(novoVeiculo);
-								
+							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase())) {
+								Multa.CadastrarMulta(multaCadastro, veiculo);
 							}else {
-								Exception e = new Exception();
-								throw new excecoes.CombustivelIncompativelException("Veículo Inválido", e);
+								throw new excecoes.ValorInvalidoException("Veículo Inválido");
 							}
 							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Manutenção Cadastrada com Sucesso!", "Cadastro Abastecimento", JOptionPane.PLAIN_MESSAGE);
+						
 					}else {
 						Exception e = new Exception();
-						throw new excecoes.DescriçãoEmBrancoException("Veículo não cadastrado!!", e);
+						throw new excecoes.DescriçãoEmBrancoException("Veículo não cadastrado!!");
 					}
 				}catch (Exception e) {
-					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Manutenção", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Erro ao cadastrar Multa: " + e.getMessage(), "Multa", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

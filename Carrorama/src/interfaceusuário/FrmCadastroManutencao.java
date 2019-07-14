@@ -109,27 +109,21 @@ public class FrmCadastroManutencao extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(veiculoCadastrado) {
-						Manutencao manutencaoCadastro = new Manutencao("Manutencao - " + txtNomeManutencao.getText(), txtData.getText(), Double.parseDouble(txtValor.getText()), Double.parseDouble(txtQuilometragem.getText()), Double.parseDouble(txtValidade.getText()));
+						Manutencao manutencaoCadastro = new Manutencao("Manutencao - " + txtNomeManutencao.getText(), txtData.getText(), util.getDoubleValue(txtValor.getText()), util.getDoubleValue(txtQuilometragem.getText()), util.getDoubleValue(txtValidade.getText()));
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()) &&  util.ValidarCamposCadastroVeiculo(veiculo)) {
-								Veiculo novoVeiculo = veiculo;
-								novoVeiculo.despesasVeiculo.add(manutencaoCadastro);
-								veiculos.remove(veiculo);
-								veiculos.add(novoVeiculo);
+							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase())) {
+								Manutencao.CadastrarManutencao(manutencaoCadastro, veiculo);
 								
 							}else {
-								Exception e = new Exception();
-								throw new excecoes.CombustivelIncompativelException("Veículo Inválido", e);
+								throw new excecoes.CombustivelIncompativelException("Veículo Inválido");
 							}
-							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Manutenção Cadastrada com Sucesso!", "Cadastro Abastecimento", JOptionPane.PLAIN_MESSAGE);
+						
 					}else {
-						Exception e = new Exception();
-						throw new excecoes.DescriçãoEmBrancoException("Veículo não cadastrado ou Algum campo está vazio!", e);
+						throw new excecoes.ValorInvalidoException("Veículo não cadastrado.");
 					}
 				}catch (Exception e) {
-					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Manutenção -" , JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane,"Erro ao cadastrar Manutenção: " + e.getMessage(), "Manutenção" , JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

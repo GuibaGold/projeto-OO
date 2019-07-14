@@ -6,7 +6,7 @@ public class ValorInvalidoException extends Exception {
 		
 	}
 
-	public ValorInvalidoException(String message, Exception cause) {
-		super(message, cause);
+	public ValorInvalidoException(String message) {
+		super(message);
 	}
 }

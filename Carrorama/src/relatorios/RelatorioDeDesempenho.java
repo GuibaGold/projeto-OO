@@ -30,7 +30,7 @@ public class RelatorioDeDesempenho {
 					}
 				}
 			}
-			System.out.println("Desempenho de consumo: "+ kmlit);
+			System.out.println("Desempenho de consumo(Km/L): "+ kmlit);
 		} catch(Exception e) {
 			System.out.println("Não há despesa ou veículo");
 			e.printStackTrace();

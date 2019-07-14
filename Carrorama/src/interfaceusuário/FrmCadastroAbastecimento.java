@@ -82,7 +82,7 @@ public class FrmCadastroAbastecimento extends JFrame {
 		txtQuilometragem.setColumns(10);
 		
 		JComboBox comboTipoCombustivel = new JComboBox();
-		comboTipoCombustivel.setModel(new DefaultComboBoxModel(new String[] {"Gasolina", "Álcool", "Diesel"}));
+		comboTipoCombustivel.setModel(new DefaultComboBoxModel(new String[] {"Gasolina", "Alcool", "Diesel"}));
 		comboTipoCombustivel.setBounds(190, 61, 161, 24);
 		contentPane.add(comboTipoCombustivel);
 		
@@ -128,39 +128,19 @@ public class FrmCadastroAbastecimento extends JFrame {
 				try {
 					if(veiculoCadastrado) {
 						Abastecimento abastecimentoCadastro = new Abastecimento(txtDataAbastecimento.getText(), "Abastecimento", 
-								comboTipoCombustivel.getSelectedItem().toString(), Integer.parseInt(txtQuilometragem.getText()), Double.parseDouble(txtValorLitro.getText()), Double.parseDouble(txtValorTotal.getText()), chckbxTanqueCheio.isSelected());
-						double quantidadeAbastecida = Double.parseDouble(txtValorTotal.getText()) / Double.parseDouble(txtValorLitro.getText());
+								comboTipoCombustivel.getSelectedItem().toString(), util.getIntegerValue(txtQuilometragem.getText()), Double.parseDouble(txtValorLitro.getText()), Double.parseDouble(txtValorTotal.getText()),
+								chckbxTanqueCheio.isSelected(), txtQuantidadeCombustivel.getText());
 						for(Veiculo veiculo : veiculos) {
-							String placaCadastro = comboVeiculos.getSelectedItem().toString().toUpperCase();
-							String tipoCombustivelCadastro =  comboTipoCombustivel.getSelectedItem().toString().toUpperCase();
-							String placaVeiculo = veiculo.getPlaca();
-							String tipoCombustivelVeiculo = veiculo.getTipoDeCombutivel();
-							if(util.getDoubleValue(txtQuantidadeCombustivel.getText()) <= util.getDoubleValue(veiculo.getCapacidade()) 
-									&& placaVeiculo.equals(placaCadastro) && tipoCombustivelVeiculo.equals(tipoCombustivelCadastro) && util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString().toUpperCase(), quantidadeAbastecida)) {
-								Veiculo novoVeiculo = veiculo;
-								veiculo.despesasVeiculo.add(abastecimentoCadastro);
-								veiculos.remove(veiculo);
-								veiculos.add(novoVeiculo);
-							}else {
-								Exception e = new Exception();
-								if(util.getDoubleValue(txtQuantidadeCombustivel.getText()) > util.getDoubleValue(veiculo.getCapacidade())) {
-									throw new excecoes.CombustivelIncompativelException("Verifique se a quantidade informada não ultrapassa a capacidade do veículo", e);
-								}else if(!placaVeiculo.equals(placaCadastro)) {
-									throw new excecoes.ValorInvalidoException("Verifique a placa informada", e);
-								}else if(!tipoCombustivelVeiculo.equals(tipoCombustivelCadastro)) {
-									throw new excecoes.CombustivelIncompativelException("Verifique o tipo de Combustível informado", e);
-								}else if(!util.ValidarCadastroAbastecimento(veiculo, comboTipoCombustivel.getSelectedItem().toString(), quantidadeAbastecida)) {
-									throw new excecoes.ValorInvalidoException("Cadastro inválido", e);
-								}
+							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString())) {
+								Abastecimento.CadastrarAbastecimento(abastecimentoCadastro, veiculo);
 							}
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Abastecimento Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.PLAIN_MESSAGE);
+						
 					}else {
-						Exception e = new Exception();
-						throw new excecoes.ValorInvalidoException("Veículo não Cadastrado",e);
+						throw new excecoes.ValorInvalidoException("Veículo não Cadastrado");
 					}
 				}catch (Exception e) {
-					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Abastecimento", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane,"Erro ao cadastrar Abastecimento: " + e.getMessage(), "Abastecimento", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -193,6 +173,8 @@ public class FrmCadastroAbastecimento extends JFrame {
 		txtQuantidadeCombustivel.setBounds(233, 141, 124, 19);
 		contentPane.add(txtQuantidadeCombustivel);
 		txtQuantidadeCombustivel.setColumns(10);
+		
+		
 		
 		
 	}

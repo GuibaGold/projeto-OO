@@ -138,21 +138,15 @@ public class FrmCadastroImposto extends JFrame {
 						Imposto impostoCadastro = new Imposto("Imposto", txtDataPagamento.getText(), Double.parseDouble(txtValorParcela.getText()), 
 								Integer.parseInt(comboQtdeParcelas.getSelectedItem().toString()), comboTpImposto.getSelectedItem().toString());
 						for(Veiculo veiculo : veiculos) {
-							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()) && util.ValidarCamposCadastroVeiculo(veiculo)) {
-								Veiculo novoVeiculo = veiculo;
-								novoVeiculo.despesasVeiculo.add(impostoCadastro);
-								veiculos.remove(veiculo);
-								veiculos.add(novoVeiculo);
+							if(veiculo.getPlaca().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()) ) {
+								Imposto.CadastrarImposto(impostoCadastro, veiculo);
 							}else {
-								Exception e = new Exception();
-								throw new excecoes.CombustivelIncompativelException("Veículo Inválido", e);
+								throw new excecoes.CombustivelIncompativelException("Veículo Inválido");
 							}
-							
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Imposto Cadastrado com Sucesso!", "Cadastro Abastecimento", JOptionPane.PLAIN_MESSAGE);
 					}else {
 						Exception e = new Exception();
-						throw new excecoes.DescriçãoEmBrancoException("Veículo não cadastrado!!", e);
+						throw new excecoes.DescriçãoEmBrancoException("Veículo não cadastrado!!");
 					}
 				}catch (Exception e) {
 					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Imposto", JOptionPane.ERROR_MESSAGE);

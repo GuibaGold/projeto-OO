@@ -116,28 +116,16 @@ public class FrmCadastroFinanciamento extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(veiculoCadastrado) {
-						Financiamento financiamentoCadastro = new Financiamento("Financiamento", txtData.getText(), Double.parseDouble(txtValorParcela.getText()), Integer.parseInt(comboParcelas.getSelectedItem().toString()));
+						Financiamento financiamentoCadastro = new Financiamento("Financiamento", txtData.getText(), util.getDoubleValue(txtValorParcela.getText()), util.getIntegerValue(comboParcelas.getSelectedItem().toString()));
 						for(Veiculo veiculo : veiculos) {
-							String placaCadastro = comboVeiculos.getSelectedItem().toString().toUpperCase();
-							String placaVeiculo = veiculo.getPlaca();
-							if(placaVeiculo.equals(placaCadastro) && util.ValidarCamposCadastroVeiculo(veiculo)) {
-								Veiculo novoVeiculo = veiculo;
-								veiculo.despesasVeiculo.add(financiamentoCadastro);
-								veiculos.remove(veiculo);
-								veiculos.add(novoVeiculo);
-							}else {
-								Exception e = new Exception();
-								throw new excecoes.CombustivelIncompativelException("Veículo Inválido", e);
-							}
-							
+							if(veiculo.getPlaca().toUpperCase().equals(comboVeiculos.getSelectedItem().toString().toUpperCase()))
+							Financiamento.CadastrarFinanciamento(financiamentoCadastro, veiculo);
 						}
-						JOptionPane.showConfirmDialog(contentPane, "Financiamento Cadastrado com Sucesso!", "Cadastro Financiamento", JOptionPane.PLAIN_MESSAGE);
 					}else {
-						Exception e = new Exception();
-						throw new excecoes.ValorInvalidoException("Veículo não Cadastrado",e);
+						throw new excecoes.ValorInvalidoException("Veículo não Cadastrado");
 					}
 				}catch (Exception e) {
-					JOptionPane.showMessageDialog(contentPane, e.getMessage(), "Abastecimento", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane,"Erro ao cadastrar Financiamento: " + e.getMessage(), "Abastecimento", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

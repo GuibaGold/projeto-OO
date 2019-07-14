@@ -1,5 +1,7 @@
 package despesas;
 
+import proprietario.Veiculo;
+
 public class Imposto extends Despesas {
 	
 	private String tipoImposto; // 1 - DPVAT, 2 - IPVA, 3 - Licenciamento 
@@ -36,6 +38,30 @@ public class Imposto extends Despesas {
 	public String toString() {
 		return "Imposto ["+ super.toString() + " tipoImposto = " + tipoImposto + ", qtdParcelas = " + qtdParcelas + ", valorParcela = " + valorParcela
 				+ "]";
+	}
+
+	public static void CadastrarImposto(Imposto impostoCadastro, Veiculo veiculo) {
+		if(ValidarImposto(impostoCadastro)) {
+			veiculo.despesasVeiculo.add(impostoCadastro);
+		}
+		
+	}
+
+	private static boolean ValidarImposto(Imposto impostoCadastro) {
+		if(impostoCadastro.getData().isBlank()) {
+			return false;
+		}else if(impostoCadastro.getNome().isBlank()) {
+			return false;
+		}else if(impostoCadastro.getQtdParcelas() == 0) {
+			return false;
+		}else if(impostoCadastro.getTipoImposto().isBlank()) {
+			return false;
+		}else if(impostoCadastro.getValor() == 0) {
+			return false;
+		}else if(impostoCadastro.getValorParcela() == 0) {
+			return false;
+		}
+		return true;
 	}
 	
 }

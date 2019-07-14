@@ -1,6 +1,9 @@
 package proprietario;
 
 import despesas.Despesas;
+import excecoes.DescriçãoEmBrancoException;
+import util.util;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -48,6 +51,49 @@ public class Veiculo {
 		this.motorizacao = motorizacao;
 	}
 	
+	public static void CadastrarVeiculo(Veiculo novoVeiculo, List<Veiculo> veiculos) throws DescriçãoEmBrancoException {
+		if(ValidarCamposCadastroVeiculo(novoVeiculo)) {
+			veiculos.add(novoVeiculo);
+			JOptionPane.showMessageDialog(null, "Cadastro Efetuado com sucesso", "Cadastro Veículo", JOptionPane.PLAIN_MESSAGE);
+		}
+		else {
+			throw new excecoes.DescriçãoEmBrancoException("Verifique se não há nenhum campo preenchido incorretamente...");
+		}
+	}
+	
+
+	private static boolean ValidarCamposCadastroVeiculo(Veiculo veiculoCadastro) {
+		try {
+			String capacidade = veiculoCadastro.getCapacidade();
+			String combustivelAtual = veiculoCadastro.getCombustivelAtual();
+			if(veiculoCadastro.getMarca() == "") {
+				return false;
+			}else if(veiculoCadastro.getModelo() == "") {
+				return false;
+			}else if(veiculoCadastro.getCor() == "") {
+				return false;
+			}else if(veiculoCadastro.getAnoDeFabricacao() > 2019) {
+				return false;
+			}else if(veiculoCadastro.getAnoDoModelo() > 2019) {
+				return false;
+			}else if(util.getDoubleValue(capacidade) < 1) {
+				return false;
+			}else if(util.getDoubleValue(combustivelAtual) < 0){
+				return false;
+			}else if(veiculoCadastro.getMotorizacao() == "") {
+				return false;
+			}else if(veiculoCadastro.getRenavam().length() < 11 || veiculoCadastro.getRenavam().length() > 11) {
+				return false;
+			}else if(veiculoCadastro.getPlaca() == "") {
+				return false;
+			}else if(veiculoCadastro.getTipoDeCombutivel() == "") {
+				return false;
+			}
+		}catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erro ao validar cadastro", JOptionPane.ERROR_MESSAGE);
+		}
+		return true;
+	}
 	
 	public String getMarca() {
 		return marca;

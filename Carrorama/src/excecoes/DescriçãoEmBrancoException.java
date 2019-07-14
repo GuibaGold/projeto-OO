@@ -6,8 +6,8 @@ public class DescriçãoEmBrancoException extends Exception {
 		
 	}
 
-	public DescriçãoEmBrancoException(String message, Exception cause) {
-		super(message, cause);
+	public DescriçãoEmBrancoException(String message) {
+		super(message);
 	}
 
 }

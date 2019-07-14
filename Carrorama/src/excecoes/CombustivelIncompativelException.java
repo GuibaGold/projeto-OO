@@ -6,8 +6,8 @@ public class CombustivelIncompativelException extends Exception {
 		
 	}
 
-	public CombustivelIncompativelException(String message, Throwable cause) {
-		super(message, cause);
+	public CombustivelIncompativelException(String message) {
+		super(message);
 		
 	}
 
